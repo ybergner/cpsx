@@ -26,10 +26,6 @@ Then at some point the student sees the message, “Ok! Your partner is ready. C
 
 * However, If no one else appears online at the end of 5 minutes (or any other time determined by the instructor on the Studio authoring tool), the student will get a message “Sorry, nobody else is online now. Would you like to wait another 5 minutes? If so, click on the Restart button.” The Ready button is now Restart.
 
-* If two students are online and both select Begin, they may begin the assignment. No one else will be allowed into their chat room.
-
-(If two other students enter this assignment, they will be assigned to a separate chat). 
-
 * If a student loses his internet connection and has to log back in, ideally he should be allowed back to the collaborative portion where he dropped off.
 
 
