@@ -1,0 +1,41 @@
+/* CSS */
+.cspaybutton_block .count {
+    font-weight: bold;
+}
+
+.cspaybutton_block p {
+    cursor: pointer;
+}
+
+.printError {
+    color: #ae0a0a;
+}
+
+.boxprice { 
+	background-color:#F4F4F4;
+	width:250px;
+	padding:15px; 
+	border:1px solid #CCCCCC;
+}
+
+.submitbutton, .submitbutton input[type="button"]{
+	cursor:pointer;
+	padding:5px 25px;
+	background:#35b128;
+	border:1px solid #33842a;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 0 0 4px rgba(0,0,0, .75);
+	-moz-box-shadow: 0 0 4px rgba(0,0,0, .75); 
+	box-shadow: 0 0 4px rgba(0,0,0, .75);
+	color:#f3f3f3;
+	font-size:1.1em;
+}
+
+.submitbutton:hover, .submitbutton:focus{
+	background-color :#399630;
+	-webkit-box-shadow: 0 0 1px rgba(0,0,0, .75);
+	-moz-box-shadow: 0 0 1px rgba(0,0,0, .75);
+	box-shadow: 0 0 1px rgba(0,0,0, .75);
+}
