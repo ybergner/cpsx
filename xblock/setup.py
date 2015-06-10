@@ -22,7 +22,7 @@ def package_data(pkg, roots):
 
 setup(
     name='Collaborative-Problem-Solving-Xblock',
-    version='0.063',
+    version='0.45',
     description='Collaborative Problem Solving Xblock ',   
     packages=[
         'ibltutoringchat',
@@ -32,7 +32,7 @@ setup(
     ],
     entry_points={
         'xblock.v1': [
-            'CPSX = ibltutoringchat:IBLTutoringChat',
+            'cpsx = ibltutoringchat:IBLTutoringChat',
         ]
     },
     package_data=package_data("IBL-Tutoring-Chat", ["static", "public"]),

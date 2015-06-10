@@ -15,7 +15,7 @@ class IBLTutoringChat(XBlock):
     TO-DO: document what your XBlock does.
     """
 
-    display_name = String(display_name="Display Name", default="IBL Tutoring Chat", scope=Scope.settings, help="Name of the component in the edxplatform")
+    display_name = String(display_name="Display Name", default="Collaborative Problem Solving", scope=Scope.settings, help="Name of the component in the edxplatform")
 
     # TO-DO: delete count, and define your own fields.
     debug_mode		= String(display_name="debug", default="0", scope=Scope.content, help="Enable debug mode")	
@@ -25,11 +25,6 @@ class IBLTutoringChat(XBlock):
     n_course_id 	= String(display_name="CourseId", default="0", scope=Scope.user_state, help="Id of the current course")	
     n_user_id 		= String(display_name="UserId", default="0", scope=Scope.user_state, help="Id of the current user")	
 	
-    #provider data hardcored
-    claim_prov_name	 = 'CyberSource'
-    claim_prov_usr  	= String(display_name="ProviderUSER", default="cybersource-demo", scope=Scope.content, help="CyberSource key user")
-    claim_prov_pwd  	= String(display_name="ProviderPass", default="cybrsource-demo-pwd", scope=Scope.content, help="CyberSource key pass")
-    claim_prov_url  	= 'http://cybersource.com'
 
     #user data	
     claim_name 		= String(display_name="ClaimUserName", default="Jhon", scope=Scope.user_state, help="")	
@@ -65,28 +60,22 @@ class IBLTutoringChat(XBlock):
 	
 	self.claim_errors = ""
 
-        """
-        The primary view of the CsPayButton, shown to students
-        when viewing courses.
-        """
-	import cspaybuild
-	self.form_send_pay = cspaybuild.build_cb_payment(self.required_price,self.claim_db_user_course,self.claim_db_user_course,self.claim_db_user_id,self.claim_db_user_email,self.form_text,self.debug_mode)
 
 	if self.claim_errors == "":
 		if self.debug_mode == "1":
-			html = self.resource_string("static/html/debug.html")
+			html = self.resource_string("public/html/debug.html")
 		else:
-			html = self.resource_string("static/html/ibltutoring.html")
+			html = self.resource_string("public/html/ibltutoring.html")
 
 		frag = Fragment(html.format(self=self))
-		frag.add_css(self.resource_string("static/css/style.css"))
+		frag.add_css(self.resource_string("public/css/style.css"))
 		#frag.add_javascript(self.resource_string("static/js/src/cspaybutton.js"))
 		#frag.initialize_js('CsPayButton')
 		#frag.initialize_js('CsPaySubmit')
 	else:
-		html = self.resource_string("static/html/errors.html")
+		html = self.resource_string("public/html/errors.html")
 		frag = Fragment(html.format(self=self))
-		frag.add_css(self.resource_string("static/css/style.css"))
+		frag.add_css(self.resource_string("public/css/style.css"))
         return frag
 
     def get_student_id(self):
@@ -143,10 +132,10 @@ class IBLTutoringChat(XBlock):
         The primary view of the CsPayButton, shown to students
         when viewing courses.
         """
-	html = self.resource_string("static/html/ibltutoring_edit.html")
+	html = self.resource_string("public/html/ibltutoring_edit.html")
 	frag = Fragment(html.format(self=self))
-        frag.add_css(self.resource_string("static/css/style.css"))
-        frag.add_javascript(self.resource_string("static/js/src/ibltutoringchat_edit.js"))
+        frag.add_css(self.resource_string("public/css/style.css"))
+        frag.add_javascript(self.resource_string("public/js/src/ibltutoringchat_edit.js"))
         frag.initialize_js('ibltutoringchatEdit')
         return frag
 
