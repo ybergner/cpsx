@@ -28,6 +28,8 @@ Then at some point the student sees the message, “Ok! Your partner is ready. C
 
 * If a student loses his internet connection and has to log back in, ideally he should be allowed back to the collaborative portion where he dropped off.
 
+* Students will be able to see one homework item at a time (sequence) and have the chat side-by-side for each question. 
+
 
 
 
