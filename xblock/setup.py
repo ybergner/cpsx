@@ -22,7 +22,7 @@ def package_data(pkg, roots):
 
 setup(
     name='Collaborative-Problem-Solving-Xblock',
-    version='0.45',
+    version='0.46',
     description='Collaborative Problem Solving Xblock ',   
     packages=[
         'ibltutoringchat',

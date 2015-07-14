@@ -16,8 +16,11 @@ if(!$_GET["room"]) { $_GET["room"] = 1;  }
 	$GLOBALS['myroom'] = $_GET["room"];
 
 $db_server = "localhost";
-$db_user = "ajaxchat";
-$db_pass = "ajaxchat";
+$db_user = "root";
+$db_pass = "";
+
+
+
 
 if(!@$conection = mysql_pconnect($db_server, $db_user, $db_pass)) { error("Error SQL 1"); exit;}
 mysql_select_db("ajax_chat") or die("error2");
@@ -33,6 +36,7 @@ if(!$tipo['id']){
 
 $query = "insert into s_members (name,pass) values ('".mysql_escape_string($_GET["user"])."','d8578edf8458ce06fbc5bb76a58c5ca4')";
 mysql_query($query);
+
 }
 
 
@@ -57,31 +61,61 @@ if ($_REQUEST['action'] == 'get_last_messages') {
     exit;
 }
 
-
-// draw login box
-#echo $GLOBALS['oSimpleLoginSystem']->getLoginBox();
-
-// draw exta necessary files
 echo '<link type="text/css" rel="stylesheet" href="templates/css/styles.css" />';
 echo '<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>';
-echo '<script type="text/javascript" src="js/main.js"></script>';
-#echo"<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>";
+echo"<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>";
 
-// draw chat messages
 $sChatMessages = $GLOBALS['AjaxChat']->getMessages();
 
-// draw input form + accept inserted texts
 if ($GLOBALS['bLoggedIn']) {
     $sChatInputForm = $GLOBALS['AjaxChat']->getInputForm();
+
     $GLOBALS['AjaxChat']->acceptMessages();
 }
 
 echo $sChatInputForm;
+
+print "<div style='font-size:12px;color:#848484;'>Current chat peers:</span> <span id='cmembers'>Jhon doe</div>";
+
 echo $sChatMessages;
 
 
-require_once('templates/footer.html');
+require_once('footer.php');
 
 
 
 ?>
+<script>
+
+$('#chatmsg').submit( function() { 
+
+$("#chat_input2").val( $("#chat_input").val()); 
+$("#chat_input").val(""); 
+
+});
+
+function getMessages(){
+        var self = this;
+        var _sRandom = Math.random();  
+
+        $.getJSON('index.php?action=get_last_messages&room=<?php echo $GLOBALS['myroom']?>' + '&_r=' + _sRandom, function(data){
+            if(data.messages) {
+                $('.chat_main').html(data.messages);
+            }
+
+            // start it again;
+            setTimeout(function(){
+               getMessages();
+            }, 1500);
+        });
+
+$.get( "members.php?room=<?php echo $GLOBALS['myroom']?>", function( data ) {
+  $( "#cmembers" ).html( data );
+});
+
+    }
+    getMessages();
+
+
+
+</script>

@@ -28,8 +28,8 @@ class ASysDB {
     */
     function ASysDB() {
         $this->sDbName = 'ajax_chat';
-        $this->sDbUser = 'ajaxchat';
-        $this->sDbPass = 'ajaxchat';
+        $this->sDbUser = 'root';
+        $this->sDbPass = '';
 
         // create db link
         $this->vLink = mysql_connect("localhost", $this->sDbUser, $this->sDbPass);

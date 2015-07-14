@@ -11,7 +11,7 @@ $(function() {
             // start it again;
             setTimeout(function(){
                getMessages();
-            }, 4000);
+            }, 5000);
         });
     }
     getMessages();

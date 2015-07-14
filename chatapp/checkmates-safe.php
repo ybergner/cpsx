@@ -6,7 +6,7 @@ define("DB_HOST", "localhost");
 define("DB_USER", "root");
 define("DB_PASS", "");
 define("DB_PORT", 3306 );
-define("DB_NAME", "ajax_chat");
+define("DB_NAME", "CPSX");
 
 define("DB_PREFIX", "");
 define('ENCRYPTION_KEY', 'S9kv9034kLAU0338dh2rfSFW3');
@@ -19,93 +19,85 @@ try {
     echo "ERROR: " . $e->getMessage();
 }
 
-
-$debugme =0;
 $form = get_form();
 
-#miro si estoy ya en un team
+#delete old waits
+
+#$stmt = $dbh->prepare("delete from group_spool where wait >  DATE_SUB(NOW(),INTERVAL 10 MINUTE)  ");
+#$stmt->execute($sdata);
+
+$sdata = array($form["room"]);
+$stmt = $dbh->prepare("select * from group_seeds where room = ? and seed != '' ");
+$stmt->execute($sdata);
+$rows = $stmt->fetch();
+
+if(!$rows["seed"]){
+
+#insert next seed
+$seedme = md5(time()+$form["room"]);
+
+$sdata = array($form["room"],$seedme);
+$stmt = $dbh->prepare("insert into group_seeds (room,seed) values (?,?) ");
+$stmt->execute($sdata);
+
+
+$key = $seedme;
+
+#print "key db".$key."<br>";
+}else{
+
+#get the seed
+
+$key = $rows["seed"];
+
+#print "key".$key."<br>";
+}
+
 
 $sdata = array($form["user"],$form["room"]);
-$stmt = $dbh->prepare("select * from teams where user = ? and room = ? ");
+$stmt = $dbh->prepare("select count(*) from group_spool where user = ? and room = ? and room_key = '' ");
 $stmt->execute($sdata);
 $rows = $stmt->fetch();
 
-if($rows["team_seed"]){
+$total_users = $rows[0];
 
-#i'm on a team
+if($total_users == 0){
 
-	$misala = $rows["team_seed"];
-
-}else{
-
-
-	#miro si hay team en formacion para este room ?
-
-	$sdata = array($form["room"]);
-	$stmt = $dbh->prepare("select * from teams where room = ? and full = 0 ");
-	$stmt->execute($sdata);
-	$rows = $stmt->fetch();
-
-
-	if(!$rows["team_seed"]){
-	
-	if($debugme == 1){print "debug: Start new team <br>";}
-
-	#no team, make it
-
-	$seedme = md5(time()+$form["room"]);
-	$misala =  $seedme;
-	$sdata = array($form["room"],$form["user"],$seedme);
-	$stmt = $dbh->prepare("insert into teams (id,room,user,full,team_seed) values ('',?,?,0,?) ");
-	$stmt->execute($sdata);
-
-	}else{
-
-	if($debugme == 1){print "debug: Add to team ".$rows["team_seed"]."<br>";}
-
-	$sdata = array($form["room"],$form["user"],$rows["team_seed"]);
-        $stmt = $dbh->prepare("insert into teams (id,room,user,full,team_seed) values ('',?,?,0,?) ");
-        $stmt->execute($sdata);
-
-	}
-
-
-
-}
-
-
-$jump = 0;
-
-
-$sdata = array($misala);
-$stmt = $dbh->prepare("select count(*) from teams where team_seed = ?");
+$sdata = array($form["user"],$form["room"]);
+$stmt = $dbh->prepare("insert into group_spool (user,room) values (?,?) ");
 $stmt->execute($sdata);
-$rows = $stmt->fetch();
+
+}
 
 
-if($rows[0] == $form["queue"]){
 
-$jump = 1;
+$sdata = array($form["room"]);
+$stmt = $dbh->prepare("select * from group_spool where room = ? and room_key = '' ");
+$stmt->execute($sdata);
+$rows = $stmt->fetchALL();
+$c=1;
+foreach($rows as $member){
 
-	if($debugme == 1){print "debug: Team is full jump to chat <br>";}
 
-	#mark as complete
-        $sdata = array($misala);
-        $stmt = $dbh->prepare("update teams set full = 1 where team_seed = ? ");
-        $stmt->execute($sdata);
+#print $c.":". $member["user"]."<br>";
+$c++;
 
 
 }
 
 
-if($jump == 1){
+#print "Group size: ".($c-1)."/".$form["queue"]."<br>";
 
-print "<script>$('#clock').countdown('pause');$('#searching').val(0);$('#bot2').hide();$('#bot3').show();$('#chatkey').val('".$misala."');</script>";
+
+if(($c-1) >=  $form["queue"]){
+
+print "<script>$('#searching').val(0);$('#bot2').hide();$('#bot3').show();$('#chatkey').val('".$key."')</script>";
 
 }else{
 
-print "<script>keepsearch();$('#chatkey').val('".$misala."');</script>";
+print "<script>keepsearch();</script>";
 }
+
 
 
 /**

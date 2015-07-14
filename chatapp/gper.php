@@ -1,5 +1,31 @@
 <?php
 
+define("DB_ENGINE", "mysql");
+define("DB_HOST", "localhost");
+define("DB_USER", "root");
+define("DB_PASS", "");
+define("DB_PORT", 3306 );
+define("DB_NAME", "ajax_chat");
+
+define("DB_PREFIX", "");
+define('ENCRYPTION_KEY', 'S9kv9034kLAU0338dh2rfSFW3');
+define ("PDO_DSN", sprintf("mysql:host=%s;port=%d;dbname=%s", DB_HOST, DB_PORT, DB_NAME));
+
+//
+try {
+    $dbh = new PDO(PDO_DSN, DB_USER, DB_PASS);
+} catch(PDOException $e) {
+    echo "ERROR: " . $e->getMessage();
+}
+
+
+
+if(!$_GET["user"] or !$_GET["room"] or $_GET["user"] == 'None'){
+
+exit;
+
+}
+
 
 $_GET["user"] = trim($_GET["user"]);
 $_GET["room"] = trim($_GET["room"]);
@@ -22,8 +48,22 @@ $segundos = date("s", $fecha);
 $endate = $ano."/".$mes."/".$dia." ".$hora.":".$minutos.":".$segundos;
 
 
-
 $nick = substr($_GET["user"],0,strpos($_GET["user"],"@"));
+
+
+$sdata = array($_GET["user"],$_GET["room"]);
+$stmt = $dbh->prepare("select * from teams where user = ? and room = ? and full = 1 and team_seed != '' ");
+$stmt->execute($sdata);
+$rows = $stmt->fetch();
+
+if($rows["team_seed"]){
+
+header("Location: /index.php?user=".$_GET["user"]."&room=".$rows["team_seed"]);
+exit;
+
+
+}
+
 ?>
 <style>
 body{
@@ -83,7 +123,7 @@ Waiting for partners to chat with  - Time left: <span id='clock'></span>
 
 
 <div id='bot3' style='display:none;'>
-Ok! Your partners are ready. Click <b>Begin</b> to start the assignment.<br>
+Ok! Your partners are ready. Click <b>Begin</b> to start the chat.<br>
 <button class='buttin' onclick='javascript:launchat();'>Begin</button>
 </div>
 
@@ -104,20 +144,26 @@ Sorry, nobody else is online now. Would you like to wait another <?php echo $_GE
 <script type="text/javascript">
 var intervalID;
 
-$('#clock').countdown(($.now()+<?php echo ($_GET["wtime"]*60)*1000 ;?>), function(event) {
-   $(this).html(event.strftime('%M:%S'));
 
- }
+$('#clock').countdown(($.now()+<?php echo ($_GET["wtime"]*60)*1000 ;?>), function(event) { $(this).html(event.strftime('%M:%S')); } );
 
-);
+$('#clock').countdown.stop();
 
 $('#clock').on('finish.countdown', function() {
+
+
+
 $('#searching').val(0);  
 $('#bot2').hide();
 
+$.ajax({ url: "remov.php", data: { room : "<?php echo $_GET["room"]?>" , user: "<?php echo $_GET["user"]?>", queue: "<?php echo $_GET["queue"]?>"}, cache: false });
+$('#bot4').show();
+
+
+
+
 });
 
-$('#clock').countdown('pause');
 
 
 
@@ -125,23 +171,28 @@ function startsearch(){
 
 $('#searching').val(1);
 $('#bot1').hide();
+$('#bot3').hide();
+$('#bot4').hide();
 $('#bot2').show();
-$('#clock').countdown('start');
+$('#clock').countdown($.now()+<?php  echo ($_GET["wtime"]*60)*1000 ;?>);
 
-setTimeout(chekme,5000);
+setTimeout(chekme,2500);
 }
 
 function restt(){
+
 
 $('#bot2').show();
 $('#bot1').hide();
 $('#bot3').hide();
 $('#bot4').hide();
-$('#clock').countdown($.now()+<?php echo ($_GET["wtime"]*60)*1000 ;?>);
-
+$('#clock').countdown($.now()+<?php  echo ($_GET["wtime"]*60)*1000 ;?>);
+$('#searching').val("1");
 }
 
 function chekme(){
+
+if($('#searching').val() == 1 ){
 
 $.ajax({
   url: "checkmates.php",
@@ -153,12 +204,13 @@ $.ajax({
   });
 }
 
+}
+
 function keepsearch(){
 
 if($('#searching').val() == 1 ){
 
-setTimeout(chekme,50000);
-
+setTimeout(chekme,2500);
 }
 
 }
