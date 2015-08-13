@@ -1,0 +1,88 @@
+INSTALLATION INSTRUCTIONS 
+
+0. We will try to do all of this starting from a barebones Ubuntu installation using
+the cypress release (see here for updated information
+https://github.com/edx/configuration/wiki/edX-Ubuntu-12.04-64-bit-Installation)
+
+On Amazon, if using a community Ubuntu 12.04 64 bit AMI, it is necessary to expand the
+root partition before launching. The default is 8GB. Make it at least 25GB (preferance is 50GB). 
+
+The remainder assumes that the following instance is launched with sufficient storage:
+
+AMI ID ubuntu-precise-12.04-amd64-server-20150401 (ami-00615068)
+
+Connect to the remote server
+
+sudo apt-get update -y
+sudo apt-get upgrade -y
+sudo reboot
+
+export OPENEDX_RELEASE=named-release/cypress
+wget https://raw.githubusercontent.com/edx/configuration/master/util/install/sandbox.sh -O - | bash
+
+
+1. To set up the virtual host without interfering with other OpenEdX ports, 
+we will use port 4444
+
+sudo apt-get install apache2
+
+On OpenEdX, apache installation will fail because port 80 is already in use by nginx.
+Modify /etc/apache2/ports.conf (replace with included version)
+Add the file chatapp.conf to /etc/apache2/sites-available
+and then symlink it to sites/enabled
+> cd /etc/apache2
+> sudo ln -s sites-available/chatapp.conf sites-enabled/chatapp
+
+Then this should work to start the virtual host
+> sudo /etc/init.d/apache2 start
+
+
+2.
+Create a MySQL DDBB and import the structure from the sql.dump
+
+> mysql -u root
+>> create database ajax_chat;
+
+3.
+Dump MySQL structure to the new created DDBB, 
+https://github.com/iblstudios/CPSX-xBlock/blob/master/chatapp/mysql-dump/sql.dump
+We will need to git clone anyway to install the XBlock, so do this
+
+cd /edx/app/edxapp
+sudo -u edxapp git clone https://github.com/ybergner/CPSX-xBlock.git
+
+$mysql -u root
+>> ajax_chat < /edx/app/edxapp/CPSX-xBlock/chatapp/mysql-dump/sql.dump
+
+
+4.
+Point the xblock vars inside the new virtual server,
+https://github.com/iblstudios/CPSX-xBlock/blob/master/xblock/ibltutoringchat/IBLTutoringChat.py
+
+[Still don't know exactly what this means]
+[Edit, that's because it was the wrong file]
+
+
+The following error will occur if you do nothing in this step and do step 5. When you 
+try to attach a CPSX object in Studio, you get
+
+Error: [Errno 2] No such file or directory: '/edx/app/edxapp/venvs/edxapp/local/lib/python2.7/site-packages/ibltutoringchat/public/html/ibltutoring.html'
+
+The following quick fix resolves this error, but does not make the CPSX object actually 
+appear in the courseware (careful about capitalization of xblock and xBlock in the repo name)
+
+$ sudo cp -r /edx/app/edxapp/CPSX-xblock/xblock/ibltutoringchat/public/ /edx/app/edxapp/venvs/edxapp/local/lib/python2.7/site-packages/ibltutoringchat/
+
+
+
+5.
+
+https://github.com/iblstudios/CPSX-xBlock/tree/master/xblock
+Install the XBlock
+cd /edx/app/edxapp && sudo -u edxapp /edx/bin/pip.edxapp install CPSX-xBlock/xblock/
+
+Need to add this line to cms.envs.json under FEATURES
+
+"ALLOW_ALL_ADVANCED_COMPONENTS": true,
+
+Then, of course, need to add "cpsx" to list of advanced modules in course.

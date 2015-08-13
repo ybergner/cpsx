@@ -11,7 +11,7 @@ from xblock.fields import Scope, Integer, String
 from xblock.fragment import Fragment
 from xmodule.fields import RelativeTime
 
-class IBLTutoringChat(XBlock):
+class CPSX(XBlock):
     """
     TO-DO: document what your XBlock does.
     """
@@ -66,13 +66,10 @@ class IBLTutoringChat(XBlock):
 		if self.debug_mode == "1":
 			html = self.resource_string("public/html/debug.html")
 		else:
-			html = self.resource_string("public/html/ibltutoring.html")
+			html = self.resource_string("public/html/cpsx.html")
 
 		frag = Fragment(html.format(self=self))
 		frag.add_css(self.resource_string("public/css/style.css"))
-		#frag.add_javascript(self.resource_string("static/js/src/cspaybutton.js"))
-		#frag.initialize_js('CsPayButton')
-		#frag.initialize_js('CsPaySubmit')
 	else:
 		html = self.resource_string("public/html/errors.html")
 		frag = Fragment(html.format(self=self))
@@ -130,14 +127,13 @@ class IBLTutoringChat(XBlock):
 
     def studio_view(self, context=None):
         """
-        The primary view of the CsPayButton, shown to students
-        when viewing courses.
+        The primary view shown to content editor in Studio
         """
-	html = self.resource_string("public/html/ibltutoring_edit.html")
+	html = self.resource_string("public/html/cpsx_edit.html")
 	frag = Fragment(html.format(self=self))
         frag.add_css(self.resource_string("public/css/style.css"))
-        frag.add_javascript(self.resource_string("public/js/src/ibltutoringchat_edit.js"))
-        frag.initialize_js('ibltutoringchatEdit')
+        frag.add_javascript(self.resource_string("public/js/src/cpsx_edit.js"))
+        frag.initialize_js('cpsxEdit')
         return frag
 
 
@@ -168,11 +164,9 @@ class IBLTutoringChat(XBlock):
     def workbench_scenarios():
         """A canned scenario for display in the workbench."""
         return [
-            ("CsPayButton",
+            ("CPSX",
              """<vertical_demo>
-                <cspaybutton/>
-                <cspaybutton/>
-                <cspaybutton/>
+                <cpsx/>
                 </vertical_demo>
              """),
         ]

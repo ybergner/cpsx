@@ -1,4 +1,4 @@
-<div class="cspaybutton_block">
+<div class="cpsx_block">
  Anon User ID: <b>{self.n_user_id}</b><br>
  Real User ID : <b>{self.claim_db_user_id}</b><br>
  User Name : <b>{self.claim_db_user_name}</b><br>
@@ -7,10 +7,10 @@
  Text Desc. <b>{self.form_text}</b><br>
  Chat Room <b> {self.required_price}</b><br>
 <br><br>
-<iframe src='http://vm1-cloud.iblstudios.com:4444/?user={self.claim_db_user_email}' frameborder=0 width='100%' height='480px;'  id=ajaxchat></iframe>
+<iframe src='http://ec2-52-2-222-36.compute-1.amazonaws.com:4444/?user={self.claim_db_user_email}' frameborder=0 width='100%' height='480px;'  id=ajaxchat></iframe>
 </div>
 <script>
-s("#ajaxchat").load("http://vm1-cloud.iblstudios.com:4444/index.php");
+s("#ajaxchat").load("http://ec2-52-2-222-36.compute-1.amazonaws.com:4444/index.php");
 window.alert("loading");
 </script>
 </p>
