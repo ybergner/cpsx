@@ -1,8 +1,8 @@
-function ibltutoringchatEdit(runtime, element) {
+function cpsxEdit(runtime, element) {
     $('.save-button', element).bind('click', function() {
         var data = {
 	    'form_text':$('#edit_form_id').val(),
-	    'required_price':$('#required_price').val(),
+	    'group_size':$('#group_size').val(),
 	    'wait_time':$('#wait_time').val(),
         };
         var handlerUrl = runtime.handlerUrl(element, 'studio_save');

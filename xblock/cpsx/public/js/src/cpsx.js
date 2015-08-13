@@ -1,5 +1,5 @@
-/* Javascript for CsPayButton. */
-function ibltutoringchat(runtime, element) {
+/* Javascript for CPSX. */
+function cpsx(runtime, element) {
 
 	$("#chatme1").submit(function(event) {
 		// Stop the browser from submitting the form.

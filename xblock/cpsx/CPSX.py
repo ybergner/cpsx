@@ -22,7 +22,7 @@ class CPSX(XBlock):
     debug_mode		= String(display_name="debug", default="0", scope=Scope.content, help="Enable debug mode")	
     form_text 		= String(display_name="button_description", default="", scope=Scope.content, help="Button text description")	
     wait_time 		= String(display_name="button_description", default="", scope=Scope.content, help="Button text description")	
-    required_price	= String(display_name="price_value", default="0", scope=Scope.content, help="Price")	
+    group_size		= String(display_name="group_size", default="0", scope=Scope.content, help="Group size")	
     n_course_id 	= String(display_name="CourseId", default="0", scope=Scope.user_state, help="Id of the current course")	
     n_user_id 		= String(display_name="UserId", default="0", scope=Scope.user_state, help="Id of the current user")	
 	
@@ -150,10 +150,10 @@ class CPSX(XBlock):
         Called when submitting the form in Studio.
         """
         self.form_text      = data['form_text']
-        self.required_price = data['required_price']
+        self.group_size = data['group_size']
         self.wait_time = data['wait_time']
-	if self.required_price =='':
-		self.required_price = 0
+	if self.group_size =='':
+		self.group_size = 0
         return {
             'result': 'success',
         }
