@@ -1,0 +1,12 @@
+/* Javascript for CsPayButton. */
+function ibltutoringchat(runtime, element) {
+
+	$("#chatme1").submit(function(event) {
+		// Stop the browser from submitting the form.
+	event.preventDefault();
+        	//events
+        	var $formdata = $("#chatme1").serialize();
+        	                alert("Could not proceed");
+	});
+}
+
