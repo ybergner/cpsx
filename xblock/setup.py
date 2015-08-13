@@ -22,7 +22,7 @@ def package_data(pkg, roots):
 
 setup(
     name='Collaborative-Problem-Solving-Xblock',
-    version='0.5',
+    version='0.51',
     description='Collaborative Problem Solving Xblock ',   
     packages=[
         'cpsx',
@@ -32,7 +32,7 @@ setup(
     ],
     entry_points={
         'xblock.v1': [
-            'cpsx = cpsx:CPSXBlock',
+            'cpsx = cpsx:CPSX',
         ]
     },
     package_data=package_data("CPSX", ["static", "public"]),
