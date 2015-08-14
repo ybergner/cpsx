@@ -22,7 +22,7 @@ class CPSX(XBlock):
     debug_mode		= String(display_name="debug", default="0", scope=Scope.content, help="Enable debug mode")	
     form_text 		= String(display_name="form_text", default=" ", scope=Scope.content, help="Button text description")	
     wait_time 		= String(display_name="wait_time", default="5", scope=Scope.content, help="Button text description")	
-    group_size		= String(display_name="group_size", default="0", scope=Scope.content, help="Group size")	
+    group_size		= String(display_name="group_size", default="2", scope=Scope.content, help="Group size")	
     n_course_id 	= String(display_name="CourseId", default="0", scope=Scope.user_state, help="Id of the current course")	
     n_user_id 		= String(display_name="UserId", default="0", scope=Scope.user_state, help="Id of the current user")	
 	
@@ -153,7 +153,7 @@ class CPSX(XBlock):
         self.group_size = data['group_size']
         self.wait_time = data['wait_time']
 	if self.group_size =='':
-		self.group_size = 0
+		self.group_size = 2
         return {
             'result': 'success',
         }

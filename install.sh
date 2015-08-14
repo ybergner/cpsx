@@ -48,6 +48,7 @@ sudo rm /etc/apache2/sites-enabled/000-default
 # "ALLOW_ALL_ADVANCED_COMPONENTS": true,
 # or just replace cms envs file with this one
 sudo cp CPSX-xBlock/cms.env.json .
+sudo cp CPSX-xBlock/lms.env.json .
 
 # Now install the XBlock
 sudo -u edxapp /edx/bin/pip.edxapp install CPSX-xBlock/xblock/
