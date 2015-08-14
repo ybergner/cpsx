@@ -56,7 +56,7 @@ if($rows["team_seed"]){
 	$seedme = md5(time()+$form["room"]);
 	$misala =  $seedme;
 	$sdata = array($form["room"],$form["user"],$seedme);
-	$stmt = $dbh->prepare("insert into teams (id,room,user,full,team_seed) values ('',?,?,0,?) ");
+	$stmt = $dbh->prepare("insert into teams (id,room,user,full,team_seed) values (DEFAULT,?,?,0,?) ");
 	$stmt->execute($sdata);
 
 	}else{
@@ -64,7 +64,7 @@ if($rows["team_seed"]){
 	if($debugme == 1){print "debug: Add to team ".$rows["team_seed"]."<br>";}
 
 	$sdata = array($form["room"],$form["user"],$rows["team_seed"]);
-        $stmt = $dbh->prepare("insert into teams (id,room,user,full,team_seed) values ('',?,?,0,?) ");
+        $stmt = $dbh->prepare("insert into teams (id,room,user,full,team_seed) values (DEFAULT,?,?,0,?) ");
         $stmt->execute($sdata);
 
 	}
