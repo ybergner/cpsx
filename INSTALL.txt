@@ -1,3 +1,5 @@
+#!/bin/sh
+##
 INSTALLATION INSTRUCTIONS 
 
 0. We will try to do all of this starting from a barebones Ubuntu installation using
@@ -27,6 +29,16 @@ we will use port 4444
 sudo apt-get install apache2
 
 On OpenEdX, apache installation will fail because port 80 is already in use by nginx.
+Later we will replace the appropriate files
+
+
+
+1.1
+
+cd /edx/app/edxapp
+sudo git clone https://github.com/ybergner/CPSX-xBlock/ --branch yoav --single-branch
+
+
 Modify /etc/apache2/ports.conf (replace with included version)
 Add the file chatapp.conf to /etc/apache2/sites-available
 and then symlink it to sites/enabled
