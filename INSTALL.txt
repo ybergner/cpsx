@@ -17,7 +17,7 @@ sudo apt-get update -y
 sudo apt-get upgrade -y
 sudo reboot
 
-export OPENEDX_RELEASE=named-release/cypress
+export OPENEDX_RELEASE=named-release/birch.2
 wget https://raw.githubusercontent.com/edx/configuration/master/util/install/sandbox.sh -O - | bash
 
 
