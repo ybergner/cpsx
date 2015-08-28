@@ -27,7 +27,8 @@ wget https://raw.githubusercontent.com/edx/configuration/master/util/install/san
 # we will use port 4444 in the attached files
 
 sudo apt-get install apache2
-sudo apt-get install php5 libapache2-mod-php5 php5-mcrypt libapache2-mod-auth-mysql php5-mysql
+sudo apt-get install php5 php5-mysql libapache2-mod-php5
+sudo apt-get install php5 libapache2-mod-php5 libapache2-mod-auth-mysql php5-mysql
 
 # On OpenEdX, apache installation will fail because port 80 is already in use by nginx.
 # Later we will replace the appropriate files
@@ -41,8 +42,14 @@ sudo -u edxapp git clone https://github.com/ybergner/CPSX-xBlock/ --branch yoav
 sudo cp -r CPSX-xBlock/chatapp /var/www
 sudo cp -r CPSX-xBlock/ports.conf /etc/apache2/
 sudo cp -r CPSX-xBlock/chatapp.conf /etc/apache2/sites-available/
-sudo ln -s /etc/apache2/sites-available/chatapp.conf /etc/apache2/sites-enabled/chatapp
-sudo rm /etc/apache2/sites-enabled/000-default 
+
+## OLD WAY
+# sudo ln -s /etc/apache2/sites-available/chatapp.conf /etc/apache2/sites-enabled/chatapp
+# sudo rm /etc/apache2/sites-enabled/000-default
+#### NEW WAY
+#
+sudo a2dissite default
+sudo a2ensite chatapp.conf
 
 # Need to add this line to cms.envs.json under FEATURES
 # "ALLOW_ALL_ADVANCED_COMPONENTS": true,
@@ -62,7 +69,6 @@ sudo /edx/bin/supervisorctl restart edxapp:
 # Then this should work to start the virtual host
 sudo /etc/init.d/apache2 start
 
-# test this by visiting collaborative-assessment.org:4444
 
 # Create a MySQL DDBB and import the structure from the sql.dump
 
@@ -72,5 +78,6 @@ mysql -u root create database ajax_chat
 
 mysql -u root ajax_chat < CPSX-xBlock/chatapp/mysql-dump/sql.dump
 
+# test chatapp by visiting collaborative-assessment.org:4444
 
 # Then, of course, need to add "cpsx" to list of advanced modules in course.
