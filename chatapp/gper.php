@@ -112,7 +112,7 @@ font-family:"Open Sans",Verdana,Geneva,sans-serif,sans-serif;
 <script type="text/javascript" src="/js/jquery.countdown.min.js"></script>
 
 
-<button id = 'bot1' class='buttin' onclick='javascript:startsearch();'>Click Ready to start</button>
+<button id = 'bot1' class='buttin' onclick='javascript:startsearch();'>Click to search for chat partners</button>
 
 
 <div id='bot2'  style='display:none;'>
@@ -129,7 +129,7 @@ Ok! Your partners are ready. Click <b>Begin</b> to start the chat.<br>
 
 <div id='bot4'  style='display:none;'>
 Sorry, nobody else is online now. Would you like to wait another <?php echo $_GET["wtime"];?> minutes? If so, click on the <b>Restart</b> button.<br>
-<button class='buttin' onclick='javascript:restt();'>Restart</button>
+<button class='buttin' onclick='javascript:restt();'>Restart countdown</button>
 </div>
 
 <input type=hidden name=chatkey id=chatkey value=''>

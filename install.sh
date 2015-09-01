@@ -19,7 +19,7 @@
 ## sudo apt-get upgrade -y
 ## sudo reboot
 
-export OPENEDX_RELEASE=named-release/birch.2
+export OPENEDX_RELEASE=named-release/cypress
 wget https://raw.githubusercontent.com/edx/configuration/master/util/install/sandbox.sh -O - | bash
 
 
@@ -51,11 +51,27 @@ sudo cp -r CPSX-xBlock/chatapp.conf /etc/apache2/sites-available/
 sudo a2dissite default
 sudo a2ensite chatapp.conf
 
+# Then this should work to start the virtual host
+sudo /etc/init.d/apache2 start
+
+# The app still won't work until the databases it needs are created.
+# Create a MySQL DDBB and import the structure from the sql.dump
+
+mysql -u root create database ajax_chat
+
+# Dump MySQL structure to the new created DDBB,
+
+mysql -u root ajax_chat < CPSX-xBlock/chatapp/mysql-dump/sql.dump
+
+# can test chatapp by visiting collaborative-assessment.org:4444
+
+
 # Need to add this line to cms.envs.json under FEATURES
 # "ALLOW_ALL_ADVANCED_COMPONENTS": true,
 # or just replace cms envs file with this one
-sudo cp CPSX-xBlock/cms.env.json .
-sudo cp CPSX-xBlock/lms.env.json .
+sudo cp CPSX-xBlock/cypress_envs/cms.env.json .
+sudo chown edxapp:edxapp cms.env.json
+# OPTIONAL: sudo cp CPSX-xBlock/cypress_envs/lms.env.json .
 
 # Now install the XBlock
 sudo -u edxapp /edx/bin/pip.edxapp install CPSX-xBlock/xblock/
@@ -65,19 +81,5 @@ sudo cp -r CPSX-xBlock/xblock/cpsx/public /edx/app/edxapp/venvs/edxapp/local/lib
 
 # restart the cms
 sudo /edx/bin/supervisorctl restart edxapp:
-
-# Then this should work to start the virtual host
-sudo /etc/init.d/apache2 start
-
-
-# Create a MySQL DDBB and import the structure from the sql.dump
-
-mysql -u root create database ajax_chat
-
-# Dump MySQL structure to the new created DDBB, 
-
-mysql -u root ajax_chat < CPSX-xBlock/chatapp/mysql-dump/sql.dump
-
-# test chatapp by visiting collaborative-assessment.org:4444
 
 # Then, of course, need to add "cpsx" to list of advanced modules in course.
