@@ -1,4 +1,5 @@
-"""TO-DO: Write a description of what this XBlock is."""
+"""CPSX: An XBlock to enable limited-cohort real-time chat as part of any assignment
+"""
 
 
 import pkg_resources
@@ -10,7 +11,7 @@ from xblock.fields import Scope, Integer, String
 from xblock.fragment import Fragment
 from xmodule.fields import RelativeTime
 
-class IBLTutoringChat(XBlock):
+class CPSX(XBlock):
     """
     TO-DO: document what your XBlock does.
     """
@@ -19,16 +20,16 @@ class IBLTutoringChat(XBlock):
 
     # TO-DO: delete count, and define your own fields.
     debug_mode		= String(display_name="debug", default="0", scope=Scope.content, help="Enable debug mode")	
-    form_text 		= String(display_name="button_description", default=" ", scope=Scope.content, help="Button text description")	
-    wait_time 		= String(display_name="button_description", default=" ", scope=Scope.content, help="Button text description")	
-    required_price	= String(display_name="price_value", default="0", scope=Scope.content, help="Price")	
+    form_text 		= String(display_name="form_text", default="RoomName", scope=Scope.content, help="Button text description")	
+    wait_time 		= String(display_name="wait_time", default="5", scope=Scope.content, help="Button text description")	
+    group_size		= String(display_name="group_size", default="2", scope=Scope.content, help="Group size")	
     n_course_id 	= String(display_name="CourseId", default="0", scope=Scope.user_state, help="Id of the current course")	
     n_user_id 		= String(display_name="UserId", default="0", scope=Scope.user_state, help="Id of the current user")	
 	
 
     #user data	
-    claim_name 		= String(display_name="ClaimUserName", default="Jhon", scope=Scope.user_state, help="")	
-    claim_mail 		= String(display_name="ClaimUserMail", default="sils@iblstudios.com", scope=Scope.user_state, help="")	
+    claim_name 		= String(display_name="ClaimUserName", default="Yoav", scope=Scope.user_state, help="")	
+    claim_mail 		= String(display_name="ClaimUserMail", default="ybergner@gmail.com", scope=Scope.user_state, help="")	
     claim_db_user_data 	= 'None'
     claim_db_user_id 	= 'None'
     claim_db_user_course= 'None'
@@ -65,13 +66,10 @@ class IBLTutoringChat(XBlock):
 		if self.debug_mode == "1":
 			html = self.resource_string("public/html/debug.html")
 		else:
-			html = self.resource_string("public/html/ibltutoring.html")
+			html = self.resource_string("public/html/cpsx.html")
 
 		frag = Fragment(html.format(self=self))
 		frag.add_css(self.resource_string("public/css/style.css"))
-		#frag.add_javascript(self.resource_string("static/js/src/cspaybutton.js"))
-		#frag.initialize_js('CsPayButton')
-		#frag.initialize_js('CsPaySubmit')
 	else:
 		html = self.resource_string("public/html/errors.html")
 		frag = Fragment(html.format(self=self))
@@ -129,14 +127,13 @@ class IBLTutoringChat(XBlock):
 
     def studio_view(self, context=None):
         """
-        The primary view of the CsPayButton, shown to students
-        when viewing courses.
+        The primary view shown to content editor in Studio
         """
-	html = self.resource_string("public/html/ibltutoring_edit.html")
+	html = self.resource_string("public/html/cpsx_edit.html")
 	frag = Fragment(html.format(self=self))
         frag.add_css(self.resource_string("public/css/style.css"))
-        frag.add_javascript(self.resource_string("public/js/src/ibltutoringchat_edit.js"))
-        frag.initialize_js('ibltutoringchatEdit')
+        frag.add_javascript(self.resource_string("public/js/src/cpsx_edit.js"))
+        frag.initialize_js('cpsxEdit')
         return frag
 
 
@@ -152,11 +149,11 @@ class IBLTutoringChat(XBlock):
         """
         Called when submitting the form in Studio.
         """
-        self.form_text      = data['form_text']
-        self.required_price = data['required_price']
+        self.form_text = data['form_text']
+        self.group_size = data['group_size']
         self.wait_time = data['wait_time']
-	if self.required_price =='':
-		self.required_price = 0
+	if self.group_size =='':
+		self.group_size = 2
         return {
             'result': 'success',
         }
@@ -167,11 +164,9 @@ class IBLTutoringChat(XBlock):
     def workbench_scenarios():
         """A canned scenario for display in the workbench."""
         return [
-            ("CsPayButton",
+            ("CPSX",
              """<vertical_demo>
-                <cspaybutton/>
-                <cspaybutton/>
-                <cspaybutton/>
+                <cpsx/>
                 </vertical_demo>
              """),
         ]

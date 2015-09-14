@@ -1,4 +1,4 @@
-"""Setup for cspaybutton XBlock."""
+"""Setup for CPSX XBlock."""
 
 import os
 from setuptools import setup
@@ -22,18 +22,18 @@ def package_data(pkg, roots):
 
 setup(
     name='Collaborative-Problem-Solving-Xblock',
-    version='0.46',
+    version='0.59',
     description='Collaborative Problem Solving Xblock ',   
     packages=[
-        'ibltutoringchat',
+        'cpsx',
     ],
     install_requires=[
         'XBlock',
     ],
     entry_points={
         'xblock.v1': [
-            'cpsx = ibltutoringchat:IBLTutoringChat',
+            'cpsx = cpsx:CPSX',
         ]
     },
-    package_data=package_data("IBL-Tutoring-Chat", ["static", "public"]),
+    package_data=package_data("CPSX", ["static", "public"]),
 )
