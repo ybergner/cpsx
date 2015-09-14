@@ -75,7 +75,7 @@ if ($GLOBALS['bLoggedIn']) {
 
 echo $sChatInputForm;
 
-print "<div style='font-size:12px;color:#848484;'>Current chat peers:</span> <span id='cmembers'>Jhon doe</div>";
+print "<div style='font-size:12px;color:#848484;'>Current chat peers:</span> <span id='cmembers'>John doe</div>";
 
 echo $sChatMessages;
 

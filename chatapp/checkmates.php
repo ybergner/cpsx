@@ -56,7 +56,7 @@ if($rows["team_seed"]){
 	$seedme = md5(time()+$form["room"]);
 	$misala =  $seedme;
 	$sdata = array($form["room"],$form["user"],$seedme);
-	$stmt = $dbh->prepare("insert into teams (id,room,user,full,team_seed) values ('',?,?,0,?) ");
+	$stmt = $dbh->prepare("insert into teams (id,room,user,full,team_seed) values (DEFAULT,?,?,0,?) ");
 	$stmt->execute($sdata);
 
 	}else{
@@ -64,7 +64,7 @@ if($rows["team_seed"]){
 	if($debugme == 1){print "debug: Add to team ".$rows["team_seed"]."<br>";}
 
 	$sdata = array($form["room"],$form["user"],$rows["team_seed"]);
-        $stmt = $dbh->prepare("insert into teams (id,room,user,full,team_seed) values ('',?,?,0,?) ");
+        $stmt = $dbh->prepare("insert into teams (id,room,user,full,team_seed) values (DEFAULT,?,?,0,?) ");
         $stmt->execute($sdata);
 
 	}
@@ -96,6 +96,21 @@ $jump = 1;
 
 
 }
+
+## missing condition! sometimes the team queue becomes over full
+## because of latency, if multiple people click start nearly at teh same time
+## the simplest fix seems to be to delete the whole team queue
+## because then it will just get regenerated...
+
+if($rows[0] > $form["queue"]){
+
+        if($debugme == 1){print "debug: Team is over full! <br>";}
+        #clear it!
+        $sdata = array($misala);
+        $stmt = $dbh->prepare("delete from teams where team_seed = ? ");
+        $stmt->execute($sdata);
+}
+
 
 
 if($jump == 1){
