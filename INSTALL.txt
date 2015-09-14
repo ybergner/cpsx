@@ -1,52 +1,59 @@
 #!/bin/sh
 ##
-INSTALLATION INSTRUCTIONS 
+# INSTALLATION INSTRUCTIONS 
 
-0. We will try to do all of this starting from a barebones Ubuntu installation using
-the cypress release (see here for updated information
-https://github.com/edx/configuration/wiki/edX-Ubuntu-12.04-64-bit-Installation)
+# We will try to do all of this starting from a barebones Ubuntu installation using
+# the cypress release (see here for updated information
+# https://github.com/edx/configuration/wiki/edX-Ubuntu-12.04-64-bit-Installation)
 
-On Amazon, if using a community Ubuntu 12.04 64 bit AMI, it is necessary to expand the
-root partition before launching. The default is 8GB. Make it at least 25GB (preferance is 50GB). 
+# On Amazon, if using a community Ubuntu 12.04 64 bit AMI, it is necessary to expand the
+# root partition before launching. The default is 8GB. Make it at least 25GB (preferance is 50GB). 
 
-The remainder assumes that the following instance is launched with sufficient storage:
+# The remainder assumes that the following instance is launched with sufficient storage:
 
-AMI ID ubuntu-precise-12.04-amd64-server-20150401 (ami-00615068)
+# AMI ID ubuntu-precise-12.04-amd64-server-20150401 (ami-00615068)
 
-Connect to the remote server
+# Connect to the remote server
 
 sudo apt-get update -y
 sudo apt-get upgrade -y
 sudo reboot
 
-export OPENEDX_RELEASE=named-release/birch.2
+export OPENEDX_RELEASE=named-release/cypress
 wget https://raw.githubusercontent.com/edx/configuration/master/util/install/sandbox.sh -O - | bash
 
 
-1. To set up the virtual host without interfering with other OpenEdX ports, 
-we will use port 4444
+# To set up the virtual host without interfering with other OpenEdX ports, 
+# we will use port 4444
 
 sudo apt-get install apache2
 
-On OpenEdX, apache installation will fail because port 80 is already in use by nginx.
-Later we will replace the appropriate files
+# On OpenEdX, apache installation will fail because port 80 is already in use by nginx.
+# Later we will replace the appropriate files. For now, don’t worry and install php
 
-
-
-1.1
+sudo apt-get install php5 php5-mysql libapache2-mod-php5
 
 cd /edx/app/edxapp
-sudo git clone https://github.com/ybergner/CPSX-xBlock/ --branch yoav --single-branch
+sudo git clone https://github.com/ybergner/CPSX-xBlock/ --branch yoav
 
+sudo cp -r CPSX-xBlock/chatapp /var/www/
 
-Modify /etc/apache2/ports.conf (replace with included version)
-Add the file chatapp.conf to /etc/apache2/sites-available
-and then symlink it to sites/enabled
-> cd /etc/apache2
-> sudo ln -s sites-available/chatapp.conf sites-enabled/chatapp
+# Modify /etc/apache2/ports.conf (replace with included version)
+sudo cp CPSX-xBlock/ports.conf /etc/apache2/ports.conf
+sudo cp CPSX-xBlock/chatapp.conf /etc/apache2/sites-available
 
-Then this should work to start the virtual host
-> sudo /etc/init.d/apache2 start
+#### OLD WAY
+# and then symlink it to sites/enabled
+# cd /etc/apache2
+# sudo ln -s sites-available/chatapp.conf sites-enabled/chatapp
+#
+#### NEW WAY
+#
+sudo a2dissite default
+sudo a2ensite chatapp.conf
+
+# Then this should work to start the virtual host
+sudo /etc/init.d/apache2 start
 
 
 2.
@@ -63,8 +70,7 @@ We will need to git clone anyway to install the XBlock, so do this
 cd /edx/app/edxapp
 sudo -u edxapp git clone https://github.com/ybergner/CPSX-xBlock.git
 
-$mysql -u root
->> ajax_chat < /edx/app/edxapp/CPSX-xBlock/chatapp/mysql-dump/sql.dump
+mysql -u root ajax_chat < /edx/app/edxapp/CPSX-xBlock/chatapp/mysql-dump/sql.dump
 
 
 4.
