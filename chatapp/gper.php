@@ -147,7 +147,8 @@ var intervalID;
 
 $('#clock').countdown(($.now()+<?php echo ($_GET["wtime"]*60)*1000 ;?>), function(event) { $(this).html(event.strftime('%M:%S')); } );
 
-$('#clock').countdown.stop();
+//$('#clock').countdown.stop();  // this is possibly wrong syntax, causing problems...
+//$('#clock').countdown('stop'); // this works but is it necessary?
 
 $('#clock').on('finish.countdown', function() {
 

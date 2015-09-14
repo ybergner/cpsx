@@ -97,6 +97,21 @@ $jump = 1;
 
 }
 
+## missing condition! sometimes the team queue becomes over full
+## because of latency, if multiple people click start nearly at teh same time
+## the simplest fix seems to be to delete the whole team queue
+## because then it will just get regenerated...
+
+if($rows[0] > $form["queue"]){
+
+        if($debugme == 1){print "debug: Team is over full! <br>";}
+        #clear it!
+        $sdata = array($misala);
+        $stmt = $dbh->prepare("delete from teams where team_seed = ? ");
+        $stmt->execute($sdata);
+}
+
+
 
 if($jump == 1){
 
