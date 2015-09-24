@@ -38,10 +38,10 @@ sudo apt-get install php5 libapache2-mod-php5 libapache2-mod-auth-mysql php5-mys
 # and then symlink it to sites/enabled
 
 cd /edx/app/edxapp
-sudo -u edxapp git clone https://github.com/ybergner/CPSX-xBlock/ --branch yoav
-sudo cp -r CPSX-xBlock/chatapp /var/www
-sudo cp -r CPSX-xBlock/ports.conf /etc/apache2/
-sudo cp -r CPSX-xBlock/chatapp.conf /etc/apache2/sites-available/
+sudo -u edxapp git clone https://github.com/ybergner/cpsx/ --branch yoav
+sudo cp -r cpsx/chatapp /var/www
+sudo cp -r cpsx/ports.conf /etc/apache2/
+sudo cp -r cpsx/chatapp.conf /etc/apache2/sites-available/
 
 ## OLD WAY
 # sudo ln -s /etc/apache2/sites-available/chatapp.conf /etc/apache2/sites-enabled/chatapp
@@ -61,7 +61,7 @@ mysql -u root create database ajax_chat
 
 # Dump MySQL structure to the new created DDBB,
 
-mysql -u root ajax_chat < CPSX-xBlock/chatapp/mysql-dump/sql.dump
+mysql -u root ajax_chat < cpsx/chatapp/mysql-dump/sql.dump
 
 # can test chatapp by visiting collaborative-assessment.org:4444
 
@@ -69,13 +69,13 @@ mysql -u root ajax_chat < CPSX-xBlock/chatapp/mysql-dump/sql.dump
 # Need to add this line to cms.envs.json under FEATURES
 # "ALLOW_ALL_ADVANCED_COMPONENTS": true,
 # or just replace cms envs file with this one
-sudo cp CPSX-xBlock/cypress_envs/cms.env.json .
+sudo cp cpsx/cypress_envs/cms.env.json .
 sudo chown edxapp:edxapp cms.env.json
-# OPTIONAL: sudo cp CPSX-xBlock/cypress_envs/lms.env.json .
+# OPTIONAL: sudo cp cpsx/cypress_envs/lms.env.json .
 
 # Now install the XBlock
-sudo -u edxapp /edx/bin/pip.edxapp install CPSX-xBlock/xblock/
-sudo cp -r CPSX-xBlock/xblock/cpsx/public /edx/app/edxapp/venvs/edxapp/local/lib/python2.7/site-packages/cpsx/
+sudo -u edxapp /edx/bin/pip.edxapp install cpsx/xblock/
+sudo cp -r cpsx/xblock/cpsx/public /edx/app/edxapp/venvs/edxapp/local/lib/python2.7/site-packages/cpsx/
 # # If installed: Upgrade the XBlock using --upgrade
 # sudo -u edxapp /edx/bin/pip.edxapp install yourXBlock/ --upgrade
 

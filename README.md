@@ -1,34 +1,22 @@
 # Collaborative Problem Solving Xblock (CPSX)
 
-The purpose of this Xblock is to allow small groups of 2, 3 or more to work on a set of edX problems together through real-time chat. The problems in the assignment can be any type of edX problem, e.g. numerical input, drag-and-drop, etc. 
+The purpose of this XBlock is to allow small groups to work on a set of edX problems together through real-time chat.
+The problems in the assignment can be any type of edX problem, e.g. numerical input, drag-and-drop, etc. 
 
-## Instructor-Side Experience
+## Installation
 
-The instructor creates in Studio a new CPS Unit assignment and decide the following:
-* (a) the size of a collaboration cohort (Group Size), e.g. 2 or 3 students
-* (b) the Wait Time, e.g. 5 minutes
+Installation, described in the file install.sh requires configuring the chat app and apache virtual host
 
+## Basic Functionality
 
-## Student-Side Experience
-
-* Student logs into the course and navigates to a collaborative Homework unit in the courseware. 
-
-* Student gets to a screen an explanation previously written by the instructor. Sample:
-
-“This is a collaborative homework assignment. You are expected to work together with a partner to answer the following 
-10 questions. Your partner will be assigned automatically from another student who is online. If no one is online, 
-the system will wait 5 minutes for another student to join. Once you and your partner are both ready to start, you will begin. 
-Click Ready to start.”
-
-* Student clicks Ready. A countdown timer begins counting down for 5 minutes to wait for partners. He sees a message: "Waiting for partners to chat with. Time left..." 
-
-Then at some point the student sees the message, “Ok! Your partner is ready. Click Begin to start the assignment.” The Ready button is now Begin. When he hits Begin that chat is automatically displayed. 
-
-* However, If no one else appears online at the end of 5 minutes (or any other time determined by the instructor on the Studio authoring tool), the student will get a message “Sorry, nobody else is online now. Would you like to wait another 5 minutes? If so, click on the Restart button.” The Ready button is now Restart.
-
-* If a student loses his internet connection and has to log back in, ideally he should be allowed back to the collaborative portion where he dropped off.
-
-* Students will be able to see one homework item at a time (sequence) and have the chat side-by-side for each question. 
+* The instructor creates in Studio an (advanced type) Collaborative Problem Solving Unit assignment and decides the following:
+* * the room name, which allows a single chat session to follow students across different screens within an assignment
+* * the size of a collaboration cohort (group size), e.g. 2 or 3 students
+* * the wait time, e.g. 5 minutes, to synchronize students before starting the assignment 
+and to put a limit on the time a student will wait in the event that no partners are available
+* A copy of the CPS unit must be placed on every page where the chat should appear.
+* Students who may lose their connection will be able to rejoin their last conversation; for this reason, students must explicitly 
+log out of their chat session to remove themselves from the active membership list.
 
 
 
