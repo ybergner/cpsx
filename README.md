@@ -23,5 +23,5 @@ log out of their chat session to remove themselves from the active membership li
 (It is straightforward to create garbage-cleaning scripts to close out active chat sessions.)
 * Chat logs and chatroom membership assignments are stored in a MySQL database called ajax_chat.
 
-
+## See wishlist.md for ways to contribute
 
