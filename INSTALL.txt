@@ -1,33 +1,31 @@
 ##
 ## INSTALLATION INSTRUCTIONS 
 ##
-## WARNING: although this file is set up as a bash script,
+## WARNING: although this file could almost be a script,
 ## it is not intended to be used as a single-purpose installer.
-## However, bits and pieces may reasonably be used!
+## However, bits and pieces may reasonably be used as such!
 ##
 
-## We will try to do all of this starting from a barebones Ubuntu installation using
-## the cypress release (see here for updated information
+### START HERE IF YOU DO NOT EVEN HAVE A WORKING CYPRESS INSTANCE
+## We will walk through this starting from a barebones Ubuntu installation using
+## the cypress release of OpenEdX (see here for updated information
 ## https://github.com/edx/configuration/wiki/edX-Ubuntu-12.04-64-bit-Installation)
 
 ## On Amazon, if using a community Ubuntu 12.04 64 bit AMI, it is necessary to expand the
 ## root partition before launching. The default is 8GB. Make it at least 25GB (preferance is 50GB). 
-
-## The remainder assumes that the following instance is launched with sufficient storage:
-
-## AMI ID ubuntu-precise-12.04-amd64-server-20150401 (ami-00615068)
-
+## We have checked that everything works starting with:
+##    AMI ID ubuntu-precise-12.04-amd64-server-20150401 (ami-00615068)
 ## Bare cypress installation as follows:
 
 ## Connect to the remote server
+sudo apt-get update -y
+sudo apt-get upgrade -y
+sudo reboot
+export OPENEDX_RELEASE=named-release/cypress
+wget https://raw.githubusercontent.com/edx/configuration/master/util/install/sandbox.sh -O - | bash
+### NB: sometimes the script needs to be run several times...
 
-## sudo apt-get update -y
-## sudo apt-get upgrade -y
-## sudo reboot
-
-## export OPENEDX_RELEASE=named-release/cypress
-## wget https://raw.githubusercontent.com/edx/configuration/master/util/install/sandbox.sh -O - | bash
-
+### START HERE IF YOU ALREADY HAVE A WORKING CYPRESS INSTANCE
 
 # To set up the virtual host without interfering with other OpenEdX ports, 
 # we will use apache2 on port 4444 in the subsequent steps
