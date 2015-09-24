@@ -5,8 +5,8 @@ The problems in the assignment can be any type of edX problem, e.g. numerical in
 
 ## Installation
 
-Installation, described in the file install.sh requires configuring the chat app and apache virtual host, installing the xblock, 
-and manually copying some style files.
+Installation, described in the file install.sh requires configuring the chat app and apache virtual host, creating the necessary
+database on the MySQL server, installing the xblock, and manually copying some style files.
 
 ## Basic Functionality
 
@@ -18,7 +18,7 @@ and to put a limit on the time a student will wait in the event that no partners
 * A copy of the CPS unit must be placed on every page where the chat should appear.
 * Students who may lose their connection will be able to rejoin their last conversation; for this reason, students must explicitly 
 log out of their chat session to remove themselves from the active membership list.
-
+* Chat logs are stored in a database called ajax_chat via the OpenEdX MySQL server
 
 
 
