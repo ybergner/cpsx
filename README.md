@@ -5,7 +5,7 @@ The problems in the assignment can be any type of edX problem, e.g. numerical in
 
 ## Installation
 
-Installation, described in the file install.sh requires configuring the chat app and apache virtual host, creating the necessary
+As described in the file INSTALL.txt, requires configuring the chat app and apache virtual host, creating the necessary
 database on the MySQL server, installing the xblock, and manually copying some style files.
 
 ## Basic Functionality
