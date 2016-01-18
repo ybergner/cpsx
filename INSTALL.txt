@@ -66,7 +66,7 @@ sudo /etc/init.d/apache2 start
 mysql -u root -e "create database ajax_chat"
 mysql -u root ajax_chat < cpsx/chatapp/mysql-dump/sql.dump
 
-# can test chatapp by visiting collaborative-assessment.org:4444
+# can test chatapp by visiting YOURDOMAINNAME:4444
 
 
 # Need to add this line to cms.envs.json under FEATURES
@@ -77,7 +77,9 @@ sudo -u edxapp cp cpsx/cypress_envs/cms.env.json .
 
 # Now install the XBlock
 sudo -u edxapp /edx/bin/pip.edxapp install cpsx/xblock/
-# and copy over these resources
+# You must modify two more files to specify your domain name:
+# cpsx/xblock/cpsx/public/html/cpsx.html and cpsx/xblock/cpsx/public/html/debug.html
+# Then copy over these resources
 sudo cp -r cpsx/xblock/cpsx/public /edx/app/edxapp/venvs/edxapp/local/lib/python2.7/site-packages/cpsx/
 # # If installed: Upgrade the XBlock using --upgrade
 
