@@ -3,7 +3,7 @@
 
 WARNINGS: (1) The cps Xblock was written for the cypress release of OpenEdX, running the edx fullstack on an Ubuntu 12.04 64-bit server. It is not guaranteed (or even expected) to work with any other release or server. (2) The domain name / IP of the server is hardcoded into the cps Xblock code in two places. This is unfortunate, but we haven't figured out how to get around it, so make sure to change the domain name where indicated below.
 
-This file is pretty long. Any help setting is up as a script would be welcome. 
+This file is pretty long. Any help setting is up as a script would be welcome.
 
 #### Start here if you don't have Cypress running
 
@@ -100,4 +100,4 @@ You may need to restart the cms
 sudo /edx/bin/supervisorctl restart edxapp:
 ```
 
-Your cypress instance is now configured to allow students to use the chatapp while answering problems. The last step is to add `"cpsx"` to the `Advanced Module List` under the Advanced Settings of the course in which you want to use Xblock. 
+Your cypress instance is now configured to allow students to use the chatapp while answering problems. The last step is to add `"cpsx"` to the `Advanced Module List` under the Advanced Settings of the course in which you want to use the Xblock. 
