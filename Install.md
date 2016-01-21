@@ -34,7 +34,7 @@ wget https://raw.githubusercontent.com/edx/configuration/master/util/install/san
 
 #### Start here if you are already running Cypress
 
-Clone the cps Xblock. Note the cd, all following code snippites assume you are in `/edx/app/edxapp`.
+Clone the cps Xblock. All following code snippits assume you are in `/edx/app/edxapp`.
 ```
 cd /edx/app/edxapp
 sudo -u edxapp git clone https://github.com/peterhalpin/cpsx
