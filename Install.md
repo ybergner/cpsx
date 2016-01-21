@@ -84,7 +84,7 @@ The next step is to set up cypress to work with the Xblock. First add this line 
 
 * `"ALLOW_ALL_ADVANCED_COMPONENTS": true,`
 
-Or just replace default file with this one:
+Or just replace the default file with this one:
 ```
 sudo cp cpsx/cypress_envs/cms.env.json cms.env.json
 ```
