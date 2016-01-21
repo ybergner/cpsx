@@ -34,7 +34,7 @@ wget https://raw.githubusercontent.com/edx/configuration/master/util/install/san
 
 #### Start here if you are already running Cypress
 
-Clone the cps Xblock 
+Clone the cps Xblock. Note the cd, all following code snippites assume you are in `/edx/app/edxapp`.
 ```
 cd /edx/app/edxapp
 sudo -u edxapp git clone https://github.com/peterhalpin/cpsx
@@ -42,9 +42,9 @@ sudo -u edxapp git clone https://github.com/peterhalpin/cpsx
 
 **IMPORTANT**: In the following two files, replace `your-domain.org` with the domain name or IP of you server. For instance, if using the Vagrant / VirtualBox setup, the default IP address used by VirtualBox is `192.168.33.10`. So replace `your-domain.org` with `192.168.33.10` as instructed.
 
-* File 1:`/edx/app/edxapp/cpsx/chatapp.conf`. Replace the `ServerName` field. You may also want to replace the [ServerAlias](http://httpd.apache.org/docs/2.2/mod/core.html#serveralias).
+* File 1:`cpsx/chatapp.conf`. Replace the `ServerName` field. You may also want to replace the [ServerAlias](http://httpd.apache.org/docs/2.2/mod/core.html#serveralias).
 
-* File 2: `/edx/app/edxapp/cpsx/xblock/cpsx/public/html/cpsx.html`. Replace the embedded text in the `<iframe>` tag.
+* File 2: `cpsx/xblock/cpsx/public/html/cpsx.html`. Replace the embedded text in the `<iframe>` tag.
 
 Next set up Apache2. Note that the initial installation will fail because the default port 80 is already in use by nginx.  After the install we modify the default to port 4444.
 ```
