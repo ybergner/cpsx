@@ -1,7 +1,7 @@
 
 ## Installation Instructions
 
-WARNINGS: (1) The cps Xblock was written for the cypress release of OpenEdX, running the edx fullstack on an Ubuntu 12.04 64-bit server. It is not guaranteed (or even expected) to work with any other release or server. (2) The domain name / IP of the server is hardcoded into the cps Xblock code in two places. This is unfortunate, but we haven't figured out how to get around it, so make sure to change the domain name where indicated below.
+**WARNINGS**: (1) The cps Xblock was written for the cypress release of OpenEdX, running the edx fullstack on an Ubuntu 12.04 64-bit server. It is not guaranteed (or even expected) to work with any other release or server. (2) The domain name / IP of the server is hardcoded into the cps Xblock code in two places. This is unfortunate, but we haven't figured out how to get around it, so make sure to change the domain name where indicated below.
 
 This file is pretty long. Any help setting is up as a script would be welcome.
 
