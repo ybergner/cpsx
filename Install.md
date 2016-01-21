@@ -1,11 +1,11 @@
 
 ## INSTALLATION INSTRUCTIONS
 
-# WARNINGS: (1) This file is not intended to be used as a single-purpose installer, although bits and pieces may reasonably be used as such. (2) The cps Xblock was written for the cypress release of OpenEdX, running the edx fullstack an Ubuntu 12.04 64-bit server. It is not guaranteed (or even expected) to work with any other release or server. (2) The domain name / IP of the server is hardcoded in two places in the cps Xblock code. This is unfortunate but we haven't figured out how to get around it, so make sure to change the domain name where indicated below.
+WARNINGS: (1) This file is not intended to be used as a single-purpose installer, although bits and pieces may reasonably be used as such. (2) The cps Xblock was written for the cypress release of OpenEdX, running the edx fullstack an Ubuntu 12.04 64-bit server. It is not guaranteed (or even expected) to work with any other release or server. (2) The domain name / IP of the server is hardcoded in two places in the cps Xblock code. This is unfortunate but we haven't figured out how to get around it, so make sure to change the domain name where indicated below.
 
 # START HERE IF YOU DO NOT HAVE A WORKING CYPRESS INSTANCE
 
-# To install edx fullstack locally with the cypress release using the Vagrant and VirtualBox (see https://github.com/edx/configuration/wiki/edx-Full-stack--installation-using-Vagrant-Virtualbox):
+To install edx fullstack locally with the cypress release using the Vagrant and VirtualBox (see https://github.com/edx/configuration/wiki/edx-Full-stack--installation-using-Vagrant-Virtualbox):
 
 mkdir fullstack
 cd fullstack
