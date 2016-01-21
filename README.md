@@ -5,7 +5,7 @@ The problems in the assignment can be any type of edX problem, e.g. numerical in
 
 ## Installation
 
-As described in the file install.md, requires configuring the chat app and apache virtual host, creating the necessary database on the MySQL server, installing the xblock, and manually copying some style files. 
+As described in the file `install.md`, requires configuring the chat app and apache virtual host, creating the necessary database on the MySQL server, installing the xblock, and manually copying some style files. 
 
 ## Basic Functionality
 
