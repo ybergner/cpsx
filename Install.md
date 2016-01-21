@@ -46,7 +46,7 @@ sudo -u edxapp git clone https://github.com/peterhalpin/cpsx
 
 * File 2: `/edx/app/edxapp/venvs/edxapp/local/lib/python2.7/site-packages/cpsx/public/html/cpsx.html`. Replace the embedded text in the `<iframe>` tag.
 
-Next set up Apache2. Note that the initial apache installation will fail because the default port 80 is already in use by nginx.  After the install we modify the default to port 4444.
+Next set up Apache2. Note that the initial installation will fail because the default port 80 is already in use by nginx.  After the install we modify the default to port 4444.
 ```
 sudo apt-get install apache2 -y
 sudo apt-get install php5 php5-mysql libapache2-mod-php5 -y
