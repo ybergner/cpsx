@@ -34,10 +34,10 @@ wget https://raw.githubusercontent.com/edx/configuration/master/util/install/san
 
 #### Start here if you are already running Cypress
 
-Clone the cps Xblock
+Clone the cps Xblock 
 ```
 cd /edx/app/edxapp
-sudo -u edxapp git clone https://github.com/ybergner/cpsx
+sudo -u edxapp git clone https://github.com/peterhalpin/cpsx
 ```
 
 **IMPORTANT**: In the following two files, replace `your-domain.org` with the domain name or IP of you server. For instance, if using the Vagrant / VirtualBox setup, the default IP address used by VirtualBox is `192.168.33.10`. So replace `your-domain.org` with `192.168.33.10` as instructed.
