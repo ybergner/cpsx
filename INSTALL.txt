@@ -1,4 +1,7 @@
-##
+## Depricated: use install.md
+
+
+
 ## INSTALLATION INSTRUCTIONS 
 ##
 ## WARNING: although this file could almost be a script,
