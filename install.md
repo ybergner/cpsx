@@ -80,7 +80,7 @@ mysql -u root ajax_chat < cpsx/chatapp/mysql-dump/sql.dump
 
 At this point, you can test chatapp by visiting `<your-domain.org>:4444`.
 
-The next step is to set up cypress to work with the Xblock. First add this line to `cms.envs.json` under FEATURES:
+Next set up Cypress to work with the Xblock. First add this line to `cms.envs.json` under FEATURES:
 
 * `"ALLOW_ALL_ADVANCED_COMPONENTS": true,`
 
@@ -100,4 +100,4 @@ You may need to restart the cms
 sudo /edx/bin/supervisorctl restart edxapp:
 ```
 
-Your Cypress instance is now configured to allow students to use the chatapp while answering problems. The last step is to add `"cpsx"` to the `Advanced Module List` under the Advanced Settings of the course in which you want to use the Xblock. 
+Your Cypress instance is now configured to allow students to use the chatapp while answering problems. The last step is to add `"cpsx"` to the `Advanced Module List` under the Advanced Settings of the course(s) in which you want to use the Xblock. 
