@@ -58,7 +58,7 @@ Modify the default port
 sudo cp -r cpsx/ports.conf /etc/apache2/
 ```
 
-Next copy chatapp.conf over to sites-available and then symlink it to sites/enabled
+Next copy chatapp.conf over to sites-available and then symlink it to sites-enabled
 ```
 sudo cp -r cpsx/chatapp /var/www
 sudo cp -r cpsx/chatapp.conf /etc/apache2/sites-available/
