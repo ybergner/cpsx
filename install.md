@@ -18,19 +18,20 @@ vagrant plugin install vagrant-hostsupdater
 vagrant up
 ```
 
-To [install the edx fullstack on AWS using the community Ubuntu 12.04 64 bit AMI](https://github.com/edx/configuration/wiki/edX-Ubuntu-12.04-64-bit-Installation) with the Cypress release:  
-
-Note: We have checked that everything works with the following AMI releases
-   * ubuntu-precise-12.04-amd64-server-20151117 - ami-0011546a
-   * ubuntu-precise-12.04-amd64-server-20150401 - ami-00615068
+To [install the edx fullstack on AWS using the community Ubuntu 12.04 64 bit AMI](https://github.com/edx/configuration/wiki/edX-Ubuntu-12.04-64-bit-Installation) with the Cypress release: 
 
 ```
 sudo apt-get update -y
 sudo apt-get upgrade -y
 sudo reboot
 export OPENEDX_RELEASE=named-release/cypress
-wget https://raw.githubusercontent.com/edx/configuration/master/util/install/sandbox.sh -O - | bash
+wget https://raw.githubusercontent.com/edx/configuration/master/util/install/ansible-bootstrap.sh -O - | sudo bash
+wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/install/sandbox.sh -O - | bash
 ```
+Note: We have checked that cpsx works with the following AMI releases
+   * ubuntu-precise-12.04-amd64-server-20151117 - ami-0011546a
+   * ubuntu-precise-12.04-amd64-server-20150401 - ami-00615068
+Also note that if you get a broken pipe after waiting on the second wget command, it is a good idea to check that everything was installed properly. If in doubt, run the wget command again. 
 
 #### Start here if you are already running Cypress
 
