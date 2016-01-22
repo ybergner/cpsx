@@ -31,6 +31,7 @@ wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/i
 Note: We have checked that cpsx works with the following AMI releases
    * ubuntu-precise-12.04-amd64-server-20151117 - ami-0011546a
    * ubuntu-precise-12.04-amd64-server-20150401 - ami-00615068
+
 Also note that if you get a broken pipe after waiting on the second wget command, it is a good idea to check that everything was installed properly. If in doubt, run the wget command again. 
 
 #### Start here if you are already running Cypress
