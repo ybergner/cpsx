@@ -1,13 +1,13 @@
 
 ## Installation Instructions
 
-**WARNINGS**: (1) The cps Xblock was written for the cypress release of OpenEdX, running the edx fullstack on an Ubuntu 12.04 64-bit server. It is not guaranteed (or even expected) to work with any other release or server. (2) The domain name / IP of the server is hardcoded into the cps Xblock code in two places. This is unfortunate, but we haven't figured out how to get around it, so make sure to change the domain name where indicated below.
+**WARNINGS**: (1) The cps Xblock was written for the cypress release of OpenEdX, running the edX fullstack on an Ubuntu 12.04 64-bit server. It is not guaranteed (or even expected) to work with any other release or server. (2) The domain name / IP of the server is hardcoded into the cps Xblock code in two places. This is unfortunate, but we haven't figured out how to get around it, so make sure to change the domain name where indicated below.
 
 This file is pretty long. Any help setting is up as a script would be welcome.
 
 #### Start here if you don't have Cypress running
 
-To [install the edx fullstack using Vagrant and VirtualBox]( https://github.com/edx/configuration/wiki/edx-Full-stack--installation-using-Vagrant-Virtualbox) with the cypress release:
+To [install the edx fullstack using Vagrant and VirtualBox]( https://github.com/edx/configuration/wiki/edx-Full-stack--installation-using-Vagrant-Virtualbox) with the Cypress release:
 
 ```
 mkdir fullstack
@@ -18,7 +18,7 @@ vagrant plugin install vagrant-hostsupdater
 vagrant up
 ```
 
-To [install the edx fullstack on AWS using the community Ubuntu 12.04 64 bit AMI](https://github.com/edx/configuration/wiki/edX-Ubuntu-12.04-64-bit-Installation) with the cypress release:  
+To [install the edx fullstack on AWS using the community Ubuntu 12.04 64 bit AMI](https://github.com/edx/configuration/wiki/edX-Ubuntu-12.04-64-bit-Installation) with the Cypress release:  
 
 Note: We have checked that everything works with the following AMI releases
    * ubuntu-precise-12.04-amd64-server-20151117 - ami-0011546a
@@ -40,7 +40,7 @@ cd /edx/app/edxapp
 sudo -u edxapp git clone https://github.com/peterhalpin/cpsx
 ```
 
-**IMPORTANT**: In the following two files, replace `your-domain.org` with the domain name or IP of you server. For instance, if using the Vagrant / VirtualBox setup, the default IP address used by VirtualBox is `192.168.33.10`. So replace `your-domain.org` with `192.168.33.10` as instructed.
+**IMPORTANT**: In the following two files, replace `your-domain.org` with the domain name or IP of your server. For instance, if using the Vagrant / VirtualBox setup, the default IP address used by VirtualBox is `192.168.33.10`. So replace `your-domain.org` with `192.168.33.10` as instructed.
 
 * File 1: `cpsx/chatapp.conf`. Replace the `ServerName` field. You may also want to replace the [ServerAlias](http://httpd.apache.org/docs/2.2/mod/core.html#serveralias).
 
