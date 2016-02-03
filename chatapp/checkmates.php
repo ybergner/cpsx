@@ -16,7 +16,7 @@ define ("PDO_EDXAPP", sprintf("mysql:host=%s;port=%d;dbname=%s", DB_HOST, DB_POR
 // dbhchatexapp is edxapp
 try {
   $dbhchat = new PDO(PDO_CHAT, DB_USER, DB_PASS, arr_pdo_attr());
-  $dbhchatexapp = new PDO(PDO_EDXAPP, DB_USER, DB_PASS, arr_pdo_attr());
+  $dbhedxapp = new PDO(PDO_EDXAPP, DB_USER, DB_PASS, arr_pdo_attr());
 } catch(PDOException $e) {
   echo "ERROR: " . $e->getMessage();
 }
@@ -80,7 +80,7 @@ if($rows[0] == $form["queue"]){
    ones. If less than n cohorts exist, nothing is done.
   */
 
-  $stmt = $dbhchatexapp->prepare("SELECT count(*) FROM course_groups_coursecohort");
+  $stmt = $dbhedxapp->prepare("SELECT count(*) FROM course_groups_coursecohort");
   $stmt->execute();
   $n_cohorts = $stmt->fetch();
   if($debugme == 1){
@@ -98,11 +98,11 @@ if($rows[0] == $form["queue"]){
     for ($i = 0; $i < $form["queue"]; $i++){
     $temp = $stmt->fetch();
 
-    $stmt2 = $dbhchatexapp->prepare("SELECT user_id FROM auth_userprofile WHERE name = ? ");
+    $stmt2 = $dbhedxapp->prepare("SELECT user_id FROM auth_userprofile WHERE name = ? ");
     $stmt2->execute(array($temp["user"]));
     $user_id = $stmt2->fetch();
 
-    $stmt3 = $dbhchatexapp->prepare("UPDATE course_groups_courseusergroup_users SET courseusergroup_id = ? WHERE user_id = ? ");
+    $stmt3 = $dbhedxapp->prepare("UPDATE course_groups_courseusergroup_users SET courseusergroup_id = ? WHERE user_id = ? ");
     $stmt3->execute(array($i+1, $user_id["user_id"]));
     }
   }
