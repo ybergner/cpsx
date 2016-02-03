@@ -21,14 +21,10 @@ try {
 }
 
 
-
-
-#miro si estoy ya en un team
-
-$sdata = array($_GET["user"],$_GET["seed"]);
 $stmt = $dbh->prepare("delete from teams where user = ? and team_seed = ? ");
-$stmt->execute($sdata);
+$stmt->execute(array($_GET["user"],$_GET["seed"]));
 
+// Upon logout, the cohort should also be re-assigned to the DEFAULT
 
 print "Logged Out";
 
