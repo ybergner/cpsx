@@ -118,7 +118,7 @@ if($rows[0] > $form["queue"]){
 
   if($debugme == 1){print "debug: Team is over full! <br>";}
   // clear it!
-  $stmt = $dbhchat->prepare("delete from teams where team_seed = ? ");
+  $stmt = $dbhchat->prepare("DELETE FROM teams WHERE team_seed = ? ");
   $stmt->execute(array($myteam));
 }
 
