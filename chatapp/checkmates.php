@@ -1,25 +1,22 @@
 <?php
-/* Modified 1/15/2016 by peterhalpin: uses edxapp database to assign cohorts
- to users in the same chatroom; see line 91
-*/
 
 define("DB_ENGINE", "mysql");
 define("DB_HOST", "localhost");
 define("DB_USER", "root");
 define("DB_PASS", "");
 define("DB_PORT", 3306 );
-define("DB_NAME", "ajax_chat");
-define("DB2_NAME", "edxapp");
+define("CHAT_DB", "ajax_chat");
+define("EDXAPP_DB", "edxapp");
 define("DB_PREFIX", "");
 define('ENCRYPTION_KEY', 'S9kv9034kLAU0338dh2rfSFW3');
 
-define ("PDO_DSN", sprintf("mysql:host=%s;port=%d;dbname=%s", DB_HOST, DB_PORT, DB_NAME));
-define ("PDO_DSN2", sprintf("mysql:host=%s;port=%d;dbname=%s", DB_HOST, DB_PORT, DB2_NAME));
+define ("PDO_CHAT", sprintf("mysql:host=%s;port=%d;dbname=%s", DB_HOST, DB_PORT, CHAT_DB));
+define ("PDO_EDXAPP", sprintf("mysql:host=%s;port=%d;dbname=%s", DB_HOST, DB_PORT, EDXAPP_DB));
 
-// dbh2 is edxapp
+// dbhchatexapp is edxapp
 try {
-  $dbh = new PDO(PDO_DSN, DB_USER, DB_PASS, arr_pdo_attr());
-  $dbh2 = new PDO(PDO_DSN2, DB_USER, DB_PASS, arr_pdo_attr());
+  $dbhchat = new PDO(PDO_CHAT, DB_USER, DB_PASS, arr_pdo_attr());
+  $dbhchatexapp = new PDO(PDO_EDXAPP, DB_USER, DB_PASS, arr_pdo_attr());
 } catch(PDOException $e) {
   echo "ERROR: " . $e->getMessage();
 }
@@ -27,26 +24,19 @@ try {
 $debugme =0;
 $form = get_form();
 
-// miro si estoy ya en un team
 // "i'm looking to see if i'm already on a team"
-$sdata = array($form["user"],$form["room"]);
-$stmt = $dbh->prepare("select * from teams where user = ? and room = ? ");
-$stmt->execute($sdata);
+$stmt = $dbhchat->prepare("select * from teams where user = ? and room = ? ");
+$stmt->execute(array($form["user"],$form["room"]));
 $rows = $stmt->fetch();
 
 if($rows["team_seed"]){
-
   // i'm on a team
-  // mi sala = "my room" but this should probably be "my team"
-  $misala = $rows["team_seed"];
+  $myteam = $rows["team_seed"];
 
 }else{
-
-  // miro si hay team en formacion para este room?
   // "is there an existing open team?"
-  $sdata = array($form["room"]);
-  $stmt = $dbh->prepare("select * from teams where room = ? and full = 0 ");
-  $stmt->execute($sdata);
+  $stmt = $dbhchat->prepare("select * from teams where room = ? and full = 0 ");
+  $stmt->execute(array($form["room"]));
   $rows = $stmt->fetch();
 
   if(!$rows["team_seed"]){
@@ -54,39 +44,33 @@ if($rows["team_seed"]){
 
     // if no team, make one for me
     $seedme = md5(time()+$form["room"]);
-    $misala =  $seedme;
-    $sdata = array($form["room"],$form["user"],$seedme);
-    $stmt = $dbh->prepare("insert into teams (id,room,user,full,team_seed) values (DEFAULT,?,?,0,?) ");
-    $stmt->execute($sdata);
+    $myteam =  $seedme;
+    $stmt = $dbhchat->prepare("insert into teams (id,room,user,full,team_seed) values (DEFAULT,?,?,0,?) ");
+    $stmt->execute(array($form["room"],$form["user"],$seedme));
 
   }else{
 
     if($debugme == 1){print "debug: Add to team ".$rows["team_seed"]."<br>";}
-
     // or add me to an existing team
-    $sdata = array($form["room"],$form["user"],$rows["team_seed"]);
-    $stmt = $dbh->prepare("insert into teams (id,room,user,full,team_seed) values (DEFAULT,?,?,0,?) ");
-    $stmt->execute($sdata);
+    $stmt = $dbhchat->prepare("insert into teams (id,room,user,full,team_seed) values (DEFAULT,?,?,0,?) ");
+    $stmt->execute(array($form["room"],$form["user"],$rows["team_seed"]));
   }
 }
 
 
 $jump = 0;
 
-$sdata = array($misala);
-$stmt = $dbh->prepare("select count(*) from teams where team_seed = ?");
-$stmt->execute($sdata);
+$stmt = $dbhchat->prepare("select count(*) from teams where team_seed = ?");
+$stmt->execute(array($myteam));
 $rows = $stmt->fetch();
 
 if($rows[0] == $form["queue"]){
+  // the team is the required size
   $jump = 1;
-
   if($debugme == 1){print "debug: Team is full jump to chat <br>";}
-
   // mark as complete
-  $sdata = array($misala);
-  $stmt = $dbh->prepare("update teams set full = 1 where team_seed = ? ");
-  $stmt->execute($sdata);
+  $stmt = $dbhchat->prepare("update teams set full = 1 where team_seed = ? ");
+  $stmt->execute(array($myteam));
 
   /* Set up cohorts. This assumes that only the values 1:n of
    course_user_group_id in the table course_groups_coursecohort are being used,
@@ -96,28 +80,30 @@ if($rows[0] == $form["queue"]){
    ones. If less than n cohorts exist, nothing is done.
   */
 
-  $stmt = $dbh2->prepare("SELECT count(*) FROM course_groups_coursecohort");
+  $stmt = $dbhchatexapp->prepare("SELECT count(*) FROM course_groups_coursecohort");
   $stmt->execute();
   $n_cohorts = $stmt->fetch();
+  if($debugme == 1){
+    print "Queue = ".$form["queue"]."<br>";
+    print "Cohorts found = ".$n_cohorts[0]."<br>";
+  }
 
   if($n_cohorts[0] >= $form["queue"]){
 
     // First, get the edx user_id of the team members
-    $stmt = $dbh->prepare("SELECT user FROM teams WHERE team_seed = ? ");
-    $stmt->execute($sdata);
+    $stmt = $dbhchat->prepare("SELECT user FROM teams WHERE team_seed = ? ");
+    $stmt->execute(array($myteam));
 
     // Loop over user_id because WHERE doesnt accept a vector ...
     for ($i = 0; $i < $form["queue"]; $i++){
     $temp = $stmt->fetch();
-    $user_i = array($temp["user"]);
 
-    $stmt2 = $dbh2->prepare("SELECT user_id FROM auth_userprofile WHERE name = ? ");
-    $stmt2->execute($user_i);
+    $stmt2 = $dbhchatexapp->prepare("SELECT user_id FROM auth_userprofile WHERE name = ? ");
+    $stmt2->execute(array($temp["user"]));
     $user_id = $stmt2->fetch();
 
-    $rdata = array($i+1, $user_id["user_id"]);
-    $stmt3 = $dbh2->prepare("UPDATE course_groups_courseusergroup_users SET courseusergroup_id = ? WHERE user_id = ? ");
-    $stmt3->execute($rdata);
+    $stmt3 = $dbhchatexapp->prepare("UPDATE course_groups_courseusergroup_users SET courseusergroup_id = ? WHERE user_id = ? ");
+    $stmt3->execute(array($i+1, $user_id["user_id"]));
     }
   }
 }
@@ -132,18 +118,17 @@ if($rows[0] > $form["queue"]){
 
   if($debugme == 1){print "debug: Team is over full! <br>";}
   // clear it!
-  $sdata = array($misala);
-  $stmt = $dbh->prepare("delete from teams where team_seed = ? ");
-  $stmt->execute($sdata);
+  $stmt = $dbhchat->prepare("delete from teams where team_seed = ? ");
+  $stmt->execute(array($myteam));
 }
 
 if($jump == 1){
 
-print "<script>$('#clock').countdown('pause');$('#searching').val(0);$('#bot2').hide();$('#bot3').show();$('#chatkey').val('".$misala."');</script>";
+print "<script>$('#clock').countdown('pause');$('#searching').val(0);$('#bot2').hide();$('#bot3').show();$('#chatkey').val('".$myteam."');</script>";
 
 }else{
 
-print "<script>keepsearch();$('#chatkey').val('".$misala."');</script>";
+print "<script>keepsearch();$('#chatkey').val('".$myteam."');</script>";
 }
 
 //-----------------------------------------------------------------------------
