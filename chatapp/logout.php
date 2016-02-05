@@ -34,9 +34,10 @@ print "Logged Out";
 //
 // THIS STILL DOESNT WORK; NOT SURE WHY
 //
-// $stmt = $dbhedxapp ->prepare("SELECT course_user_group_id FROM course_groups_coursecohort WHERE assignment_type = 'random' ");
-// $stmt->execute()
-// $rand_group = $stmt->fetch();
+// $stmt4 = $dbhedxapp ->prepare("SELECT course_user_group_id FROM course_groups_coursecohort WHERE assignment_type = 'random' ");
+// $stmt4->execute()
+// $rand_group = $stmt4->fetch();
+// print $rand_group[0]
 //
 // $stmt2 = $dbhedxapp->prepare("SELECT user_id FROM auth_userprofile WHERE name = ? ");
 // $stmt2->execute(array($_GET["user"]));
