@@ -5,7 +5,7 @@ define("DB_HOST", "localhost");
 define("DB_USER", "root");
 define("DB_PASS", "");
 define("DB_PORT", 3306 );
-define("CHAT_DB", "ajax_chat");
+define("CHAT_DB", "cpsx_chat");
 define("EDXAPP_DB", "edxapp");
 define("DB_PREFIX", "");
 define('ENCRYPTION_KEY', 'S9kv9034kLAU0338dh2rfSFW3');
@@ -13,7 +13,6 @@ define('ENCRYPTION_KEY', 'S9kv9034kLAU0338dh2rfSFW3');
 define ("PDO_CHAT", sprintf("mysql:host=%s;port=%d;dbname=%s", DB_HOST, DB_PORT, CHAT_DB));
 define ("PDO_EDXAPP", sprintf("mysql:host=%s;port=%d;dbname=%s", DB_HOST, DB_PORT, EDXAPP_DB));
 
-// dbhchatexapp is edxapp
 try {
   $dbhchat = new PDO(PDO_CHAT, DB_USER, DB_PASS, arr_pdo_attr());
   $dbhedxapp = new PDO(PDO_EDXAPP, DB_USER, DB_PASS, arr_pdo_attr());
@@ -24,9 +23,9 @@ try {
 $debugme =0;
 $form = get_form();
 
-// "i'm looking to see if i'm already on a team"
-$stmt = $dbhchat->prepare("select * from teams where user = ? and room = ? ");
-$stmt->execute(array($form["user"],$form["room"]));
+// check if i'm already on a team
+$stmt = $dbhchat->prepare("select * from teams where user = ? and room = ? and course = ? ");
+$stmt->execute(array($form["user"],$form["room"],$form["course"]));
 $rows = $stmt->fetch();
 
 if($rows["team_seed"]){
@@ -35,8 +34,8 @@ if($rows["team_seed"]){
 
 }else{
   // "is there an existing open team?"
-  $stmt = $dbhchat->prepare("select * from teams where room = ? and full = 0 ");
-  $stmt->execute(array($form["room"]));
+  $stmt = $dbhchat->prepare("select * from teams where room = ? and course = ? and full = 0 ");
+  $stmt->execute(array($form["room"],$form["course"]));
   $rows = $stmt->fetch();
 
   if(!$rows["team_seed"]){
@@ -45,15 +44,15 @@ if($rows["team_seed"]){
     // if no team, make one for me
     $seedme = md5(time()+$form["room"]);
     $myteam =  $seedme;
-    $stmt = $dbhchat->prepare("insert into teams (id,room,user,full,team_seed) values (DEFAULT,?,?,0,?) ");
-    $stmt->execute(array($form["room"],$form["user"],$seedme));
+    $stmt = $dbhchat->prepare("insert into teams (id,room,user,course,full,team_seed) values (DEFAULT,?,?,?,0,?) ");
+    $stmt->execute(array($form["room"],$form["user"],$form["course"],$seedme));
 
   }else{
 
     if($debugme == 1){print "debug: Add to team ".$rows["team_seed"]."<br>";}
     // or add me to an existing team
-    $stmt = $dbhchat->prepare("insert into teams (id,room,user,full,team_seed) values (DEFAULT,?,?,0,?) ");
-    $stmt->execute(array($form["room"],$form["user"],$rows["team_seed"]));
+    $stmt = $dbhchat->prepare("insert into teams (id,room,user,course,full,team_seed) values (DEFAULT,?,?,?,0,?) ");
+    $stmt->execute(array($form["room"],$form["user"],$form["course"],$rows["team_seed"]));
   }
 }
 

@@ -20,7 +20,7 @@ $db_user = "ajaxchat";
 $db_pass = "ajaxchat";
 
 if(!@$conection = mysql_pconnect($db_server, $db_user, $db_pass)) { error("Error SQL 1"); exit;}
-mysql_select_db("ajax_chat") or die("error2");
+mysql_select_db("cpsx_chat") or die("error2");
 
 #si no exoste lo creo
 

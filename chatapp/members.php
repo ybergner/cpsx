@@ -6,7 +6,7 @@ define("DB_HOST", "localhost");
 define("DB_USER", "root");
 define("DB_PASS", "");
 define("DB_PORT", 3306 );
-define("DB_NAME", "ajax_chat");
+define("DB_NAME", "cpsx_chat");
 
 define("DB_PREFIX", "");
 define('ENCRYPTION_KEY', 'S9kv9034kLAU0338dh2rfSFW3');

@@ -5,7 +5,7 @@ define("DB_HOST", "localhost");
 define("DB_USER", "root");
 define("DB_PASS", "");
 define("DB_PORT", 3306 );
-define("DB_NAME", "ajax_chat");
+define("DB_NAME", "cpsx_chat");
 
 define("DB_PREFIX", "");
 define('ENCRYPTION_KEY', 'S9kv9034kLAU0338dh2rfSFW3');
@@ -20,7 +20,7 @@ try {
 
 
 
-if(!$_GET["user"] or !$_GET["room"] or $_GET["user"] == 'None'){
+if(!$_GET["user"] or !$_GET["room"] or !$_GET["course"] or $_GET["user"] == 'None'){
 
 exit;
 
@@ -29,11 +29,20 @@ exit;
 
 $_GET["user"] = trim($_GET["user"]);
 $_GET["room"] = trim($_GET["room"]);
+$_GET["course"] = trim($_GET["course"]);
 $_GET["queue"] = trim($_GET["queue"]);
 $_GET["wtime"] = trim($_GET["wtime"]);
 
+print "room ".$_GET["room"]."<br>";
+print "user ".$_GET["user"]."<br>";
+print "course ".$_GET["course"]."<br>";
+print "queue ".$_GET["queue"]."<br>";
+print "wtime ".$_GET["wtime"]."<br>";
+
+
 if(!$_GET["wtime"]){$_GET["wtime"] = 5;}
 
+date_default_timezone_set('UTC');
 
 $fecha = time()+($_GET["wtime"]*60);
 $fecha = time()+($_GET["wtime"]*60);
@@ -51,9 +60,8 @@ $endate = $ano."/".$mes."/".$dia." ".$hora.":".$minutos.":".$segundos;
 $nick = substr($_GET["user"],0,strpos($_GET["user"],"@"));
 
 
-$sdata = array($_GET["user"],$_GET["room"]);
-$stmt = $dbh->prepare("select * from teams where user = ? and room = ? and full = 1 and team_seed != '' ");
-$stmt->execute($sdata);
+$stmt = $dbh->prepare("select * from teams where user = ? and room = ? and course = ? and full = 1 and team_seed != '' ");
+$stmt->execute(array($_GET["user"],$_GET["room"],$_GET["course"]));
 $rows = $stmt->fetch();
 
 if($rows["team_seed"]){
@@ -72,7 +80,7 @@ body{
   color: #3c3c3c;
 font-family:"Open Sans",Verdana,Geneva,sans-serif,sans-serif;
 }
-.buttin{
+.button{
   border: 1px solid #cacaca;
   border-radius: 3px;
   box-shadow: inset 0 1px 0 0 #fff;
@@ -111,8 +119,7 @@ font-family:"Open Sans",Verdana,Geneva,sans-serif,sans-serif;
 <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="/js/jquery.countdown.min.js"></script>
 
-
-<button id = 'bot1' class='buttin' onclick='javascript:startsearch();'>Click to search for chat partners</button>
+<button id = 'bot1' class='button' onclick='javascript:startsearch();'>Click to search for chat partners</button>
 
 
 <div id='bot2'  style='display:none;'>
@@ -124,12 +131,12 @@ Waiting for partners to chat with  - Time left: <span id='clock'></span>
 
 <div id='bot3' style='display:none;'>
 Ok! Your partners are ready. Click <b>Begin</b> to start the chat.<br>
-<button class='buttin' onclick='javascript:launchat();'>Begin</button>
+<button class='button' onclick='javascript:launchat();'>Begin</button>
 </div>
 
 <div id='bot4'  style='display:none;'>
 Sorry, nobody else is online now. Would you like to wait another <?php echo $_GET["wtime"];?> minutes? If so, click on the <b>Restart</b> button.<br>
-<button class='buttin' onclick='javascript:restt();'>Restart countdown</button>
+<button class='button' onclick='javascript:restt();'>Restart countdown</button>
 </div>
 
 <input type=hidden name=chatkey id=chatkey value=''>
@@ -154,7 +161,7 @@ $('#clock').on('finish.countdown', function() {
 
 
 
-$('#searching').val(0);  
+$('#searching').val(0);
 $('#bot2').hide();
 
 $.ajax({ url: "remov.php", data: { room : "<?php echo $_GET["room"]?>" , user: "<?php echo $_GET["user"]?>", queue: "<?php echo $_GET["queue"]?>"}, cache: false });
@@ -169,7 +176,6 @@ $('#bot4').show();
 
 
 function startsearch(){
-
 $('#searching').val(1);
 $('#bot1').hide();
 $('#bot3').hide();
@@ -197,9 +203,12 @@ if($('#searching').val() == 1 ){
 
 $.ajax({
   url: "checkmates.php",
-  data: { room : "<?php echo $_GET["room"]?>" , user: "<?php echo $_GET["user"]?>", queue: "<?php echo $_GET["queue"]?>"},
-  cache: false
-})
+  data: { room : "<?php echo $_GET["room"]?>" ,
+            user: "<?php echo $_GET["user"]?>",
+            course: "<?php echo $_GET["course"]?>",
+            queue: "<?php echo $_GET["queue"]?>"},
+            cache: false
+          })
   .done(function( html ) {
     $( "#debug" ).html( html );
   });

@@ -8,7 +8,7 @@ define("DB_USER", "root");
 define("DB_PASS", "");
 define("DB_PORT", 3306 );
 
-define("CHAT_DB", "ajax_chat");
+define("CHAT_DB", "cpsx_chat");
 define("EDXAPP_DB", "edxapp");
 define("DB_PREFIX", "");
 define('ENCRYPTION_KEY', 'S9kv9034kLAU0338dh2rfSFW3');
@@ -16,7 +16,6 @@ define('ENCRYPTION_KEY', 'S9kv9034kLAU0338dh2rfSFW3');
 define ("PDO_CHAT", sprintf("mysql:host=%s;port=%d;dbname=%s", DB_HOST, DB_PORT, CHAT_DB));
 define ("PDO_EDXAPP", sprintf("mysql:host=%s;port=%d;dbname=%s", DB_HOST, DB_PORT, EDXAPP_DB));
 
-// dbhedxapp is edxapp
 try {
   $dbhchat = new PDO(PDO_CHAT, DB_USER, DB_PASS, arr_pdo_attr());
   $dbhedxapp = new PDO(PDO_EDXAPP, DB_USER, DB_PASS, arr_pdo_attr());

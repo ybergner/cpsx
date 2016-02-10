@@ -23,7 +23,7 @@ $db_pass = "";
 
 
 if(!@$conection = mysql_pconnect($db_server, $db_user, $db_pass)) { error("Error SQL 1"); exit;}
-mysql_select_db("ajax_chat") or die("error2");
+mysql_select_db("cpsx_chat") or die("error2");
 
 #si no exoste lo creo
 
@@ -87,16 +87,16 @@ require_once('footer.php');
 ?>
 <script>
 
-$('#chatmsg').submit( function() { 
+$('#chatmsg').submit( function() {
 
-$("#chat_input2").val( $("#chat_input").val()); 
-$("#chat_input").val(""); 
+$("#chat_input2").val( $("#chat_input").val());
+$("#chat_input").val("");
 
 });
 
 function getMessages(){
         var self = this;
-        var _sRandom = Math.random();  
+        var _sRandom = Math.random();
 
         $.getJSON('index.php?action=get_last_messages&room=<?php echo $GLOBALS['myroom']?>' + '&_r=' + _sRandom, function(data){
             if(data.messages) {
