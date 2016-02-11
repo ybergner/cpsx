@@ -15,7 +15,7 @@ margin-right:10px;
 font-family: 'Open Sans', sans-serif;
 }
 .mesame{
-normal 1em/1.6em 'Open Sans', sans-serif; 
+normal 1em/1.6em 'Open Sans', sans-serif;
 color: #3c3c3c;
 }
 .login_form {
@@ -94,7 +94,7 @@ font-family: sans-serif;
 margin-left:10px;
 
 }
-.buttin{
+.button{
   border: 1px solid #cacaca;
   border-radius: 3px;
   box-shadow: inset 0 1px 0 0 #fff;
@@ -129,4 +129,23 @@ margin-left:10px;
   font-weight: 600;
         margin-top:14px;
 }
-
+.logoutbutton{
+  border: 1px solid #cacaca;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 0 0 #fff;
+  color: #333;
+  display: inline-block;
+  font-size: inherit;
+  font-weight: bold;
+  background-color: #eee;
+  background-image: linear-gradient(#eee,#d2d2d2);
+  padding: 1px 2px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #f8f8f8;
+  background-clip: padding-box;
+  font-size: 0.6125em;
+  height: 20px;
+  vertical-align: middle;
+  font-weight: 600;
+        margin-top:14px;
+}

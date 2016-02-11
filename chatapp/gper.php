@@ -13,16 +13,16 @@ define ("PDO_DSN", sprintf("mysql:host=%s;port=%d;dbname=%s", DB_HOST, DB_PORT, 
 
 //
 try {
-    $dbh = new PDO(PDO_DSN, DB_USER, DB_PASS);
+  $dbh = new PDO(PDO_DSN, DB_USER, DB_PASS);
 } catch(PDOException $e) {
-    echo "ERROR: " . $e->getMessage();
+  echo "ERROR: " . $e->getMessage();
 }
 
 
 
 if(!$_GET["user"] or !$_GET["room"] or !$_GET["course"] or $_GET["user"] == 'None'){
 
-exit;
+  exit;
 
 }
 
@@ -66,8 +66,8 @@ $rows = $stmt->fetch();
 
 if($rows["team_seed"]){
 
-header("Location: /index.php?user=".$_GET["user"]."&room=".$rows["team_seed"]);
-exit;
+  header("Location: /index.php?user=".$_GET["user"]."&room=".$rows["team_seed"]);
+  exit;
 
 
 }
@@ -78,7 +78,7 @@ body{
   font-size: 1em;
   line-height: 1.6em !important;
   color: #3c3c3c;
-font-family:"Open Sans",Verdana,Geneva,sans-serif,sans-serif;
+  font-family:"Open Sans",Verdana,Geneva,sans-serif,sans-serif;
 }
 .button{
   border: 1px solid #cacaca;
@@ -113,7 +113,7 @@ font-family:"Open Sans",Verdana,Geneva,sans-serif,sans-serif;
   height: 40px;
   vertical-align: middle;
   font-weight: 600;
-	margin-top:14px;
+  margin-top:14px;
 }
 </style>
 <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
@@ -124,19 +124,20 @@ font-family:"Open Sans",Verdana,Geneva,sans-serif,sans-serif;
 
 <div id='bot2'  style='display:none;'>
 
-Waiting for partners to chat with  - Time left: <span id='clock'></span>
+  Waiting for partners to chat with  - Time left: <span id='clock'></span>
 
 </div>
 
 
 <div id='bot3' style='display:none;'>
-Ok! Your partners are ready. Click <b>Begin</b> to start the chat.<br>
-<button class='button' onclick='javascript:launchat();'>Begin</button>
+  Ok! Your partners are ready. Click <b>Begin</b> to start the chat.<br>
+  <button class='button' onclick='javascript:launchat();'>Begin</button>
 </div>
 
+<!-- Why is this calling restt() and not just startsearch()? -->
 <div id='bot4'  style='display:none;'>
-Sorry, nobody else is online now. Would you like to wait another <?php echo $_GET["wtime"];?> minutes? If so, click on the <b>Restart</b> button.<br>
-<button class='button' onclick='javascript:restt();'>Restart countdown</button>
+  Sorry, nobody else is online now. Would you like to wait another <?php echo $_GET["wtime"];?> minutes? If so, click on the <b>Restart</b> button.<br>
+  <button class='button' onclick='javascript:restt();'>Restart countdown</button>
 </div>
 
 <input type=hidden name=chatkey id=chatkey value=''>
@@ -161,11 +162,11 @@ $('#clock').on('finish.countdown', function() {
 
 
 
-$('#searching').val(0);
-$('#bot2').hide();
+  $('#searching').val(0);
+  $('#bot2').hide();
 
-$.ajax({ url: "remov.php", data: { room : "<?php echo $_GET["room"]?>" , user: "<?php echo $_GET["user"]?>", queue: "<?php echo $_GET["queue"]?>"}, cache: false });
-$('#bot4').show();
+  $.ajax({ url: "remov.php", data: { room : "<?php echo $_GET["room"]?>" , user: "<?php echo $_GET["user"]?>", queue: "<?php echo $_GET["queue"]?>"}, cache: false });
+  $('#bot4').show();
 
 
 
@@ -176,52 +177,50 @@ $('#bot4').show();
 
 
 function startsearch(){
-$('#searching').val(1);
-$('#bot1').hide();
-$('#bot3').hide();
-$('#bot4').hide();
-$('#bot2').show();
-$('#clock').countdown($.now()+<?php  echo ($_GET["wtime"]*60)*1000 ;?>);
-
-setTimeout(chekme,2500);
+  $('#searching').val(1);
+  $('#bot1').hide();
+  $('#bot3').hide();
+  $('#bot4').hide();
+  $('#bot2').show();
+  $('#clock').countdown($.now()+<?php  echo ($_GET["wtime"]*60)*1000 ;?>);
+  setTimeout(chekme,2500);
 }
 
-function restt(){
-
-
-$('#bot2').show();
-$('#bot1').hide();
-$('#bot3').hide();
-$('#bot4').hide();
-$('#clock').countdown($.now()+<?php  echo ($_GET["wtime"]*60)*1000 ;?>);
-$('#searching').val("1");
+function restt(){ // why is this different from startsearch()?
+  $('#bot2').show();
+  $('#bot1').hide();
+  $('#bot3').hide();
+  $('#bot4').hide();
+  $('#clock').countdown($.now()+<?php  echo ($_GET["wtime"]*60)*1000 ;?>);
+  $('#searching').val("1");
+  /// how is this not here
+  setTimeout(chekme,2500);
 }
 
 function chekme(){
 
-if($('#searching').val() == 1 ){
-
-$.ajax({
-  url: "checkmates.php",
-  data: { room : "<?php echo $_GET["room"]?>" ,
-            user: "<?php echo $_GET["user"]?>",
-            course: "<?php echo $_GET["course"]?>",
-            queue: "<?php echo $_GET["queue"]?>"},
-            cache: false
-          })
-  .done(function( html ) {
-    $( "#debug" ).html( html );
-  });
-}
+  if($('#searching').val() == 1 ){
+    $.ajax({
+      url: "checkmates.php",
+      data: { room : "<?php echo $_GET["room"]?>" ,
+      user: "<?php echo $_GET["user"]?>",
+      course: "<?php echo $_GET["course"]?>",
+      queue: "<?php echo $_GET["queue"]?>"},
+      cache: false
+    })
+    .done(function( html ) {
+      $( "#debug" ).html( html );
+    });
+  }
 
 }
 
 function keepsearch(){
 
-if($('#searching').val() == 1 ){
+  if($('#searching').val() == 1 ){
 
-setTimeout(chekme,2500);
-}
+    setTimeout(chekme,2500);
+  }
 
 }
 
@@ -230,8 +229,8 @@ setTimeout(chekme,2500);
 function launchat(){
 
 
-$('#bot3').hide();
+  $('#bot3').hide();
 
-window.location.replace("/index.php?user=<?php echo $_GET["user"];?>&room="+$('#chatkey').val());
+  window.location.replace("/index.php?user=<?php echo $_GET["user"];?>&room="+$('#chatkey').val());
 }
 </script>

@@ -77,10 +77,12 @@ echo $sChatInputForm;
 
 print "<div style='font-size:12px;color:#848484;'>Current chat peers:</span> <span id='cmembers'>John doe</div>";
 
+require_once('footer.php');
+// print "<div style='font-size:12px;color:#848484;'>Current chat peers:</span> <span id='cmembers'>John doe</div>";
+
 echo $sChatMessages;
 
 
-require_once('footer.php');
 
 
 
