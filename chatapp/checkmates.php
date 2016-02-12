@@ -23,6 +23,9 @@ try {
 $debugme =0;
 $form = get_form();
 
+// plus signs used in edX course_ids encode spaces for PHP, so we need to do this
+$form["course"] =  str_replace(" ", "+", $form["course"]);
+
 // check if i'm already on a team
 $stmt = $dbhchat->prepare("select * from teams where user = ? and room = ? and course = ? ");
 $stmt->execute(array($form["user"],$form["room"],$form["course"]));
@@ -79,6 +82,42 @@ if($rows[0] == $form["queue"]){
    ones. If less than n cohorts exist, nothing is done.
   */
 
+  // first check if course is actually cohorted
+  $checkforcohorts = $dbhedxapp->prepare("SELECT is_cohorted
+    FROM course_groups_coursecohortssettings
+    WHERE course_id = ?");
+  $checkforcohorts->execute(array($form["course"]));
+  $is_cohorted = $checkforcohorts->fetch();
+
+  if ($is_cohorted[0]==1) {
+    echo $form["course"]." is cohorted!"."<br>";
+    $getcohortnames = $dbhedxapp->prepare("SELECT name, id
+      FROM course_groups_courseusergroup
+      WHERE course_id = ? ");
+    $getcohortnames->execute(array($form["course"]));
+    // this is the awesome way:
+    $cohort_names = $getcohortnames->fetchAll(PDO::FETCH_KEY_PAIR);
+    // print_r($cohort_names);
+    $assign_order = array($cohort_names['Group_A'],$cohort_names['Group_B'],$cohort_names['Default Group']);
+
+    $stmt = $dbhchat->prepare("SELECT user FROM teams WHERE team_seed = ? ");
+    $stmt->execute(array($myteam));
+    $teammates = $stmt->fetchAll();
+    // print_r($teammates);
+
+    for ($i = 0; $i < $form["queue"]; $i++){
+      $stmt2 = $dbhedxapp->prepare("SELECT user_id FROM auth_userprofile WHERE name = ? ");
+      $stmt2->execute(array($teammates[i]["user"]));
+      $user_id = $stmt2->fetch();
+
+      $stmt3 = $dbhedxapp->prepare("UPDATE course_groups_courseusergroup_users SET courseusergroup_id = ? WHERE user_id = ? ");
+      $stmt3->execute(array($assign_order[i], $user_id["user_id"]));
+    }
+  }
+  else if ($is_cohorted[0]==0) {
+    echo $form["course"]." is not cohorted!"."<br>";
+  }
+
   $stmt = $dbhedxapp->prepare("SELECT count(*) FROM course_groups_coursecohort");
   $stmt->execute();
   $n_cohorts = $stmt->fetch();
@@ -95,14 +134,14 @@ if($rows[0] == $form["queue"]){
 
     // Loop over user_id because WHERE doesnt accept a vector ...
     for ($i = 0; $i < $form["queue"]; $i++){
-    $temp = $stmt->fetch();
+      $temp = $stmt->fetch();
 
-    $stmt2 = $dbhedxapp->prepare("SELECT user_id FROM auth_userprofile WHERE name = ? ");
-    $stmt2->execute(array($temp["user"]));
-    $user_id = $stmt2->fetch();
+      $stmt2 = $dbhedxapp->prepare("SELECT user_id FROM auth_userprofile WHERE name = ? ");
+      $stmt2->execute(array($temp["user"]));
+      $user_id = $stmt2->fetch();
 
-    $stmt3 = $dbhedxapp->prepare("UPDATE course_groups_courseusergroup_users SET courseusergroup_id = ? WHERE user_id = ? ");
-    $stmt3->execute(array($i+1, $user_id["user_id"]));
+      $stmt3 = $dbhedxapp->prepare("UPDATE course_groups_courseusergroup_users SET courseusergroup_id = ? WHERE user_id = ? ");
+      $stmt3->execute(array($i+1, $user_id["user_id"]));
     }
   }
 }

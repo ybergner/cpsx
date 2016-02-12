@@ -27,9 +27,14 @@ if(!$_GET["user"] or !$_GET["room"] or !$_GET["course"] or $_GET["user"] == 'Non
 }
 
 
+
 $_GET["user"] = trim($_GET["user"]);
 $_GET["room"] = trim($_GET["room"]);
-$_GET["course"] = trim($_GET["course"]);
+// $_GET["course"] = trim($_GET["course"]);
+
+// plus signs used in edX course_ids encode spaces for PHP, so we need to do this
+$_GET["course"] =  str_replace(" ", "+", $_GET["course"]);
+
 $_GET["queue"] = trim($_GET["queue"]);
 $_GET["wtime"] = trim($_GET["wtime"]);
 
@@ -38,6 +43,7 @@ print "user ".$_GET["user"]."<br>";
 print "course ".$_GET["course"]."<br>";
 print "queue ".$_GET["queue"]."<br>";
 print "wtime ".$_GET["wtime"]."<br>";
+
 
 
 if(!$_GET["wtime"]){$_GET["wtime"] = 5;}
@@ -66,10 +72,9 @@ $rows = $stmt->fetch();
 
 if($rows["team_seed"]){
 
-  header("Location: /index.php?user=".$_GET["user"]."&room=".$rows["team_seed"]);
-  exit;
-
-
+//  header("Location: /index.php?user=".$_GET["user"]."&room=".$rows["team_seed"]);
+//  exit;
+    echo "team! <b>";
 }
 
 ?>
