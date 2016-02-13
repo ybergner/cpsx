@@ -95,7 +95,7 @@ function getMessages(){
       // start it again;
       setTimeout(function(){
          getMessages();
-      }, 1500);
+      }, 1000);
   });
 
   $.get( "members.php?room=<?php echo $GLOBALS['myroom']?>", function( data ) {
