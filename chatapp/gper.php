@@ -1,26 +1,6 @@
 <?php
 include "dbdefine.php"; // mysql details
 
-// define("DB_ENGINE", "mysql");
-// define("DB_HOST", "localhost");
-// define("DB_USER", "root");
-// define("DB_PASS", "");
-// define("DB_PORT", 3306 );
-// define("DB_NAME", "cpsx_chat");
-//
-// define("DB_PREFIX", "");
-// define('ENCRYPTION_KEY', 'S9kv9034kLAU0338dh2rfSFW3');
-// define ("PDO_DSN", sprintf("mysql:host=%s;port=%d;dbname=%s", DB_HOST, DB_PORT, DB_NAME));
-//
-//
-
-try {
-  $dbh = new PDO(PDO_CHAT, DB_USER, DB_PASS);
-} catch(PDOException $e) {
-  echo "ERROR: " . $e->getMessage();
-}
-
-
 if(!$_GET["user"] or !$_GET["room"] or
       !$_GET["course"] or $_GET["user"] == 'None'){
   exit;
@@ -59,7 +39,7 @@ $endate = $ano."/".$mes."/".$dia." ".$hora.":".$minutos.":".$segundos;
 // $nick = substr($_GET["user"],0,strpos($_GET["user"],"@"));
 
 // check if the user is already in this room and course
-$stmt = $dbh->prepare("select * from teams where
+$stmt = $dbhchat->prepare("select * from teams where
                             user = ? and room = ? and course = ?
                             and full = 1 and team_seed != '' ");
 $stmt->execute(array($_GET["user"],$_GET["room"],$_GET["course"]));
@@ -187,7 +167,6 @@ function startsearch(){
 // }
 
 function chekme(){
-
   if($('#searching').val() == 1 ){
     $.ajax({
       url: "checkmates.php",
@@ -201,7 +180,6 @@ function chekme(){
       $( "#debug" ).html( html );
     });
   }
-
 }
 
 function keepsearch(){

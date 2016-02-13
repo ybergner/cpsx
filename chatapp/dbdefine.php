@@ -15,6 +15,13 @@ define ("PDO_CHAT",
 define ("PDO_EDXAPP",
   sprintf("mysql:host=%s;port=%d;dbname=%s", DB_HOST, DB_PORT, EDXAPP_DB));
 
+try {
+  $dbhchat = new PDO(PDO_CHAT, DB_USER, DB_PASS, arr_pdo_attr());
+  $dbhedxapp = new PDO(PDO_EDXAPP, DB_USER, DB_PASS, arr_pdo_attr());
+} catch(PDOException $e) {
+  echo "ERROR: " . $e->getMessage();
+}
+
 // Return PDO:MySQL attributes
 function arr_pdo_attr() {
   $arr_pdo_attrs = array (

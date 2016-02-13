@@ -1,26 +1,8 @@
 <?php
 
-define("DB_ENGINE", "mysql");
-define("DB_HOST", "localhost");
-define("DB_USER", "root");
-define("DB_PASS", "");
-define("DB_PORT", 3306 );
-define("CHAT_DB", "cpsx_chat");
-define("EDXAPP_DB", "edxapp");
-define("DB_PREFIX", "");
-define('ENCRYPTION_KEY', 'S9kv9034kLAU0338dh2rfSFW3');
+include "dbdefine.php"; // mysql details
+include "formfunctions.php"; // get form
 
-define ("PDO_CHAT",
-  sprintf("mysql:host=%s;port=%d;dbname=%s", DB_HOST, DB_PORT, CHAT_DB));
-define ("PDO_EDXAPP",
-  sprintf("mysql:host=%s;port=%d;dbname=%s", DB_HOST, DB_PORT, EDXAPP_DB));
-
-try {
-  $dbhchat = new PDO(PDO_CHAT, DB_USER, DB_PASS, arr_pdo_attr());
-  $dbhedxapp = new PDO(PDO_EDXAPP, DB_USER, DB_PASS, arr_pdo_attr());
-} catch(PDOException $e) {
-  echo "ERROR: " . $e->getMessage();
-}
 
 $debugme =0;
 $form = get_form();
@@ -171,43 +153,5 @@ if($fullroom == 1){
   print "<script>keepsearch();$('#chatkey').val('".$myteam."');</script>";
 }
 
-//-----------------------------------------------------------------------
-// Functions follow
-//-----------------------------------------------------------------------
-
-// Return PDO:MySQL attributes
-function arr_pdo_attr() {
-  $arr_pdo_attrs = array (
-  PDO::ATTR_AUTOCOMMIT => true,
-  PDO::ATTR_EMULATE_PREPARES => true,
-  PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-  PDO::ATTR_ORACLE_NULLS => true,
-  PDO::ATTR_PERSISTENT => false,
-  PDO::ATTR_PREFETCH => true,
-  PDO::ATTR_TIMEOUT => 10,
-  PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-  );
-  return $arr_pdo_attrs;
-}
-
-// Common get data from Form @return array $form
-function get_form() {
-  $form = array();
-  if (getenv("REQUEST_METHOD") == "POST") {
-    while (list($name,  $value)  =  each($_POST)) {
-      $form[$name]  =  utf8_encode(strip_tags ($value));
-    }
-  }else{
-    $query_string  =  getenv("QUERY_STRING");
-    $query_array  =  split("&",  $query_string);
-    while (list($key,  $val)  =  each($query_array)) {
-      list($name,  $value)  =  split("=",  $val);
-      $name  =  urldecode($name);
-      $value  =  strip_tags (urldecode($value));
-      $form[$name]  =  utf8_encode(htmlspecialchars($value));
-    }
-  }
-  return $form;
-}
 
 ?>
