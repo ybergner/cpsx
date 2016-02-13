@@ -28,8 +28,8 @@ class CPSX(XBlock):
 	
 
     #user data	
-    claim_name 		= String(display_name="ClaimUserName", default="Yoav", scope=Scope.user_state, help="")	
-    claim_mail 		= String(display_name="ClaimUserMail", default="ybergner@gmail.com", scope=Scope.user_state, help="")	
+    claim_name 		= String(display_name="ClaimUserName", default="John Doe", scope=Scope.user_state, help="")	
+    claim_mail 		= String(display_name="ClaimUserMail", default="johndoe@example.com", scope=Scope.user_state, help="")	
     claim_db_user_data 	= 'None'
     claim_db_user_id 	= 'None'
     claim_db_user_course= 'None'
