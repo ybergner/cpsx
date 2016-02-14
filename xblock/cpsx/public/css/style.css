@@ -7,14 +7,29 @@
     cursor: pointer;
 }
 
+.cpsx_block {
+    align: right;
+    position: fixed;
+    bottom: 0px;
+    left: 5%;
+    border: 3px solid #CCCCCC;
+    background-color: white;
+    height: 300px;
+    width: 19%;
+}
+
+.hide {
+    height: 20px;
+}
+
 .printError {
     color: #ae0a0a;
 }
 
-.boxprice { 
+.boxprice {
 	background-color:#F4F4F4;
 	width:250px;
-	padding:15px; 
+	padding:15px;
 	border:1px solid #CCCCCC;
 }
 
@@ -27,7 +42,7 @@
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
 	-webkit-box-shadow: 0 0 4px rgba(0,0,0, .75);
-	-moz-box-shadow: 0 0 4px rgba(0,0,0, .75); 
+	-moz-box-shadow: 0 0 4px rgba(0,0,0, .75);
 	box-shadow: 0 0 4px rgba(0,0,0, .75);
 	color:#f3f3f3;
 	font-size:1.1em;

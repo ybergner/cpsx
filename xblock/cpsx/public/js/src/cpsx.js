@@ -10,3 +10,7 @@ function cpsx(runtime, element) {
 	});
 }
 
+
+function hide() {
+        $(".cpsx_block").toggleClass("hide");
+}
