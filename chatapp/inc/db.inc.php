@@ -3,7 +3,7 @@
 define('A_TAGS_NO_ACTION', 0); // default
 define('A_TAGS_STRIP', 1);
 define('A_TAGS_SPECIAL_CHARS', 8);
-define('A_TAGS_VALIDATE', 16); 
+define('A_TAGS_VALIDATE', 16);
 define('A_TAGS_STRIP_AND_NL2BR', 32);
 
 define('A_SLASHES_AUTO', 0); // default
@@ -27,7 +27,7 @@ class ASysDB {
     * constructor
     */
     function ASysDB() {
-        $this->sDbName = 'ajax_chat';
+        $this->sDbName = 'cpsx_chat';
         $this->sDbUser = 'root';
         $this->sDbPass = '';
 
@@ -57,7 +57,7 @@ class ASysDB {
     }
 
     /**
-    * execute any query 
+    * execute any query
     */
     function res($query, $error_checking = true) {
         if(!$query)
@@ -124,15 +124,15 @@ class ASysDB {
             case A_TAGS_STRIP_AND_NL2BR:
                 return mysql_real_escape_string(nl2br(strip_tags($text)));
             case A_TAGS_STRIP:
-                return mysql_real_escape_string(strip_tags($text));    
+                return mysql_real_escape_string(strip_tags($text));
             case A_TAGS_SPECIAL_CHARS:
-                return mysql_real_escape_string(htmlspecialchars($text, ENT_QUOTES, 'UTF-8')); 
+                return mysql_real_escape_string(htmlspecialchars($text, ENT_QUOTES, 'UTF-8'));
             case A_TAGS_VALIDATE:
                 return mysql_real_escape_string(clear_xss($text));
             case A_TAGS_NO_ACTION:
             default:
                 return mysql_real_escape_string($text);
-        }	
+        }
     }
 
     function error($text, $isForceErrorChecking = false, $sSqlQuery = '') {
@@ -143,13 +143,13 @@ class ASysDB {
     function genMySQLErr($out, $query ='') {
         $aBackTrace = debug_backtrace();
         unset( $aBackTrace[0] );
-        
+
         if( $query )
         {
             //try help to find error
-            
+
             $aFoundError = array();
-            
+
             foreach( $aBackTrace as $aCall )
             {
                 foreach( $aCall['args'] as $argNum => $argVal )
@@ -163,7 +163,7 @@ class ASysDB {
                     }
                 }
             }
-            
+
             if( $aFoundError )
             {
                 $sFoundError = <<<EOJ

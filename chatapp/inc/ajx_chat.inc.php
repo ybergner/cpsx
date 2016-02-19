@@ -66,7 +66,7 @@ $roomme = $GLOBALS['myroom'];
                 $sExStyles = 'style="display:none;"';
                 $sExJS = "<script> $('#message_{$aMessage['id']}').show(); </script>";
             }
-
+            date_default_timezone_set('UTC');
             $sWhen = date("H:i:s", $aMessage['when']);
 $sMessages .= '<div class="message" id="message_'.$aMessage['id'].'" '.$sExStyles.'><span class="dateme">[' . $sWhen . ']</span><span class="nameme">' . $aMessage['name'] . '</span>:<span class="mesame"> ' . $aMessage['message'] . '</span></div>' . $sExJS;
         }
