@@ -1,4 +1,13 @@
+<input type="checkbox" id="toggle_checkbox"/>
+
 <div class="cpsx_block">
-  <button class="button" onclick="hide()"> Hide </button>
-  <iframe src='http://your-domain.org:4444/gper.php?user={self.claim_db_user_email}&room={self.form_text}&queue={self.group_size}&wtime={self.wait_time}' frameborder=0 width='100%' height='480px;'  id=ajaxchat ></iframe>
+  <div class="toggle_view">
+    <label for="toggle_checkbox" style="color: #ffffff; font-size:150%; display:table-cell; vertical-align:middle; text-align:center;">
+    &#10563;</label>
+  </div>
+  <input type="checkbox" id="toggle_checkbox"/>
+  <iframe
+     src='http://collaborative-assessment.org:4444/gper.php?user={self.claim_db_user_email}&course={self.claim_db_user_course}&room={self.form_text}&queue=
+     {self.group_size}&wtime={self.wait_time}' frameborder=0 width='100%' height='100%;'  id=ajaxchat >
+  </iframe>
 </div>

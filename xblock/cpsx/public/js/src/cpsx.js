@@ -9,8 +9,3 @@ function cpsx(runtime, element) {
         	                alert("Could not proceed");
 	});
 }
-
-
-function hide() {
-        $(".cpsx_block").toggleClass("hide");
-}

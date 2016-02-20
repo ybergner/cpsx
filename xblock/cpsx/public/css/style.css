@@ -1,29 +1,83 @@
 /* CSS */
 .cpsx_block .count {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .cpsx_block p {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .cpsx_block {
-    align: right;
-    position: fixed;
-    bottom: 0px;
-    left: 5%;
-    border: 3px solid #CCCCCC;
-    background-color: white;
-    height: 300px;
-    width: 19%;
+  align : right;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0px;
+  left: 5%;
+  border: 3px solid #CCCCCC;
+  background-color: white;
+  height: 300px;
+  width: 19%;
 }
 
-.hide {
-    height: 20px;
+#toggle_checkbox {
+  display: none;
+}
+
+#toggle_checkbox:checked + .cpsx_block {
+  align : right;
+  overflow: intitial;
+  position: static;
+  bottom: 0px;
+  left: 0%;
+  border: none;
+  background-color: white;
+  height: 200px;
+  width: 100%;
+}
+
+
+.toggle_view {
+  background: #000000;
+  float: right;
+  display: table;
+  align: center;
+  height: 28px;
+  width: 28px;
+  opacity: 0.20;
+  transition: opacity 0s;
+  -webkit-transition: 0s;
+  -webkit-transition-timing-function: ease-in-out; /* Safari and Chrome */
+  transition-timing-function: ease-in-out;
+  -webkit-transition: opacity .6s; /* For Safari 3.1 to 6.0 */
+  transition: opacity .6s;
+}
+
+.toggle_view:hover{
+   opacity: .60;
+}
+
+.logoutbutton {
+  border: 1px solid #cacaca;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 0 0 #fff;
+  color: #333;
+  display: inline-block;
+  font-size: inherit;font-weight: bold;
+  background-color: #eee;
+  background-image: linear-gradient(#eee,#d2d2d2);
+  padding: 1px 2px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #f8f8f8;
+  background-clip: padding-box;
+  font-size: 0.6125em;
+  height: 20px;
+  vertical-align: middle;
+  font-weight: 600;
+  margin-top:14px;
 }
 
 .printError {
-    color: #ae0a0a;
+  color: #ae0a0a;
 }
 
 .boxprice {
