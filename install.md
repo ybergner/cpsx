@@ -18,7 +18,7 @@ vagrant plugin install vagrant-hostsupdater
 vagrant up
 ```
 
-To [install the edx fullstack on AWS using the community Ubuntu 12.04 64 bit AMI](https://github.com/edx/configuration/wiki/edX-Ubuntu-12.04-64-bit-Installation) with the Cypress release: 
+To [install the edx fullstack on AWS using the community Ubuntu 12.04 64 bit AMI](https://github.com/edx/configuration/wiki/edX-Ubuntu-12.04-64-bit-Installation) with the Cypress release:
 
 ```
 sudo apt-get update -y
@@ -32,7 +32,7 @@ Note: We have checked that cpsx works with the following AMI releases
    * ubuntu-precise-12.04-amd64-server-20151117 - ami-0011546a
    * ubuntu-precise-12.04-amd64-server-20150401 - ami-00615068
 
-If you get a broken pipe after waiting on the second wget command, it is a good idea to check that everything was installed properly. If in doubt, run the wget command again. 
+If you get a broken pipe after waiting on the second wget command, it is a good idea to check that everything was installed properly. If in doubt, run the wget command again.
 
 #### Start here if you are already running Cypress
 
@@ -76,8 +76,8 @@ sudo /etc/init.d/apache2 start
 
 Create a MySQL DB and import the structure from the sql.dump
 ```
-mysql -u root -e "create database ajax_chat"
-mysql -u root ajax_chat < cpsx/chatapp/mysql-dump/sql.dump
+mysql -u root -e "create database cpsx_chat"
+mysql -u root cpsx_chat < cpsx/chatapp/mysql-dump/sql.dump
 ```
 
 At this point, you can test chatapp by visiting `<your-domain.org>:4444`.
@@ -102,4 +102,4 @@ You may need to restart the cms
 sudo /edx/bin/supervisorctl restart edxapp:
 ```
 
-Your Cypress instance is now configured to allow students to use the chatapp while answering problems. The last step is to add `"cpsx"` to the `Advanced Module List` under the Advanced Settings of the course(s) in which you want to use the Xblock. 
+Your Cypress instance is now configured to allow students to use the chatapp while answering problems. The last step is to add `"cpsx"` to the `Advanced Module List` under the Advanced Settings of the course(s) in which you want to use the Xblock.
