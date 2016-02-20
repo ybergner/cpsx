@@ -1,99 +1,105 @@
 body{
-margin:0;
-padding:0
+  overflow:hidden;
+  margin:1px;
+  padding:0px;
 }
+
+.chat_history{
+  overflow:scroll;
+  height:100%;
+  width:100%;
+}
+
 .dateme{
 
 color:#d9d9d9;
 font-size:12px;
 margin-right:10px;
 }
+
 .nameme{
   color: #666;
   font-size: 12px;
   font-weight: normal;
-font-family: 'Open Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
+
 .mesame{
-normal 1em/1.6em 'Open Sans', sans-serif;
-color: #3c3c3c;
+  normal 1em/1.6em 'Open Sans', sans-serif;
+  color: #3c3c3c;
 }
+
 .login_form {
-border: 1px solid #AAA;
-padding:10px;
+  border: 1px solid #AAA;
+  padding:10px;
 }
-h3 {margin-top:3px;}
+
+
 .chat_main {
-width:100%;
+  width:100%;
 }
+
 .message {
-margin:8px;
-padding:10px;
-background:#ffffff;
-border-bottom:dashed 1px #f0f0f0;
+  margin:8px;
+  padding:10px;
+  background:#ffffff;
+  border-bottom:dashed 1px #f0f0f0;
 }
-.textf {-moz-box-shadow:0 0 10px #CCCCCC;
--webkit-box-shadow:0 0 10px #CCCCCC;
-border:1px solid #CCCCCC;
-height:40px;}
+
+.textf {
+  -moz-box-shadow:0 0 10px #CCCCCC;
+  -webkit-box-shadow:0 0 10px #CCCCCC;
+  border:1px solid #CCCCCC;
+  height:40px;
+}
+
 .submit {
--moz-border-radius:7px;
--webkit-border-radius:7px;
-background:#F3F3F3;
-border:1px solid #CCCCCC;
-font-size:16px;
-font-weight:bold;
-height:35px;
-margin-left:10px;
-padding:5px;
+  -moz-border-radius:7px;
+  -webkit-border-radius:7px;
+  background:#F3F3F3;
+  border:1px solid #CCCCCC;
+  font-size:16px;
+  font-weight:bold;
+  height:35px;
+  margin-left:10px;
+  padding:5px;
 }
+
 .submit_form {
-margin:10px 0px;
+  margin:10px 0px;
 }
+
 #chat_input{
-padding:5px;
-height:35px;
-width:100%;
-font-size:14px;
+  padding:5px;
+  height:35px;
+  width:100%;
+  font-size:14px;
 }
 
 #chat_inputs_disable{
-
-height:30px;
-padding:5px;
-
+  height:30px;
+  padding:5px;
 }
 
-#chat_inputs{
-font-family: sans-serif;
+
+#chat_inputs {
+  font-family: sans-serif;
   border: 1px solid #cacaca;
   border-radius: 3px;
   box-shadow: inset 0 1px 0 0 #fff;
-  color: #333;
   display: inline-block;
   background-color: #eee;
   background-image: -webkit-linear-gradient(#eee,#d2d2d2);
   background-image: linear-gradient(#eee,#d2d2d2);
   padding: 7px 18px;
   text-decoration: none;
-  text-shadow: 0 1px 0 #f8f8f8;
   background-clip: padding-box;
-  border: 1px solid #cfc6c6;
-  border-radius: 3px;
-  box-shadow: inset 0 1px 0 0 #fff;
-  display: inline-block;
   font-size: 0.9em;
-  background-color: #eee;
-  background-image: -webkit-linear-gradient(#eee,#d6cece);
-  background-image: linear-gradient(#eee,#d6cece);
-  padding: 8px 19px;
-  text-decoration: none;
   text-shadow: 0 1px 0 #f9f8f8;
-  background-clip: padding-box;
-  color: #3c3c3c;
-margin-left:10px;
+  margin-left:5px;
 
 }
+
 .button{
   border: 1px solid #cacaca;
   border-radius: 3px;
@@ -101,7 +107,7 @@ margin-left:10px;
   color: #333;
   display: inline-block;
   font-size: inherit;
-  font-weight: bold;
+  font-weight: inherit;
   background-color: #eee;
   background-image: -webkit-linear-gradient(#eee,#d2d2d2);
   background-image: linear-gradient(#eee,#d2d2d2);
@@ -109,43 +115,45 @@ margin-left:10px;
   text-decoration: none;
   text-shadow: 0 1px 0 #f8f8f8;
   background-clip: padding-box;
-  border: 1px solid #cfc6c6;
-  border-radius: 3px;
-  box-shadow: inset 0 1px 0 0 #fff;
-  color: #333;
-  display: inline-block;
-  font-size: inherit;
-  font-weight: bold;
-  background-color: #eee;
-  background-image: -webkit-linear-gradient(#eee,#d6cece);
-  background-image: linear-gradient(#eee,#d6cece);
-  padding: 7px 18px;
   text-decoration: none;
-  text-shadow: 0 1px 0 #f9f8f8;
   background-clip: padding-box;
-  font-size: 0.8125em;
-  height: 40px;
+  height: 20px;
   vertical-align: middle;
-  font-weight: 600;
-        margin-top:14px;
+  font-weight: inherit;
+  margin-top:14px;
 }
+
+.button:hover, .button:focus{
+  background-color :#399630;
+  -webkit-box-shadow: 0 0 1px rgba(0,0,0, .75);
+  -moz-box-shadow: 0 0 1px rgba(0,0,0, .75);
+  box-shadow: 0 0 1px rgba(0,0,0, .75);
+}
+
 .logoutbutton{
+  float:right;
   border: 1px solid #cacaca;
   border-radius: 3px;
   box-shadow: inset 0 1px 0 0 #fff;
   color: #333;
   display: inline-block;
   font-size: inherit;
-  font-weight: bold;
+  font-weight: inherit;
   background-color: #eee;
   background-image: linear-gradient(#eee,#d2d2d2);
-  padding: 1px 2px;
+  padding: 2px 2px;
   text-decoration: none;
   text-shadow: 0 1px 0 #f8f8f8;
   background-clip: padding-box;
   font-size: 0.6125em;
   height: 20px;
-  vertical-align: middle;
-  font-weight: 600;
-        margin-top:14px;
+  vertical-align: top;
+  margin-top:2px;
+}
+
+.logoutbutton:hover, .logoutbutton:focus{
+  background-color :#399630;
+  -webkit-box-shadow: 0 0 2px rgba(0,0,0, .75);
+  -moz-box-shadow: 0 0 2px rgba(0,0,0, .75);
+  box-shadow: 0 0 2px rgba(0,0,0, .75);
 }

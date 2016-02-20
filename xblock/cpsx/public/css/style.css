@@ -1,6 +1,6 @@
 /* CSS */
 .cpsx_block .count {
-  font-weight: bold;
+  font-weight: inherit;
 }
 
 .cpsx_block p {
@@ -11,7 +11,7 @@
   align : right;
   overflow: hidden;
   position: fixed;
-  bottom: 0px;
+  bottom: 2px;
   left: 5%;
   border: 3px solid #CCCCCC;
   background-color: white;
@@ -23,6 +23,20 @@
   display: none;
 }
 
+
+#toggle_checkbox:checked + .cpsx_block {
+    overflow: hidden;
+    position: fixed;
+    bottom: 0px;
+    left: 91%;
+    border: none;
+    background-color: none;
+    height: 37px;
+    width: 45px;
+}
+
+
+/* use this to embed in problem frame
 #toggle_checkbox:checked + .cpsx_block {
   align : right;
   overflow: intitial;
@@ -34,27 +48,26 @@
   height: 200px;
   width: 100%;
 }
-
+*/
 
 .toggle_view {
   background: #000000;
   float: right;
   display: table;
-  align: center;
-  height: 28px;
-  width: 28px;
-  opacity: 0.20;
-  transition: opacity 0s;
-  -webkit-transition: 0s;
+  height: 37px;
+  width: 40px;
+  opacity: 0.25;
   -webkit-transition-timing-function: ease-in-out; /* Safari and Chrome */
   transition-timing-function: ease-in-out;
-  -webkit-transition: opacity .6s; /* For Safari 3.1 to 6.0 */
-  transition: opacity .6s;
+  -webkit-transition: opacity .5s; /* For Safari 3.1 to 6.0 */
+  transition: opacity .5s;
 }
 
 .toggle_view:hover{
    opacity: .60;
 }
+
+/* Does the rest of this do anything? */
 
 .logoutbutton {
   border: 1px solid #cacaca;

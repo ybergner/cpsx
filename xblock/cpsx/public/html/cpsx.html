@@ -1,11 +1,18 @@
+
+<!-- link to google's material-icons -->
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<!-- weird that this has to live outside of the cpsx_block to work -->
 <input type="checkbox" id="toggle_checkbox"/>
 
 <div class="cpsx_block">
   <div class="toggle_view">
-    <label for="toggle_checkbox" style="color: #ffffff; font-size:150%; display:table-cell; vertical-align:middle; text-align:center;">
-    &#10563;</label>
+    <label for="toggle_checkbox" style="color: #ffffff; font-size:120%; display:table-cell; vertical-align:bottom; text-align:center;">
+      <i class="material-icons"> textsms</i>
+    </label>
   </div>
-  <input type="checkbox" id="toggle_checkbox"/>
   <iframe
      src='http://collaborative-assessment.org:4444/gper.php?user={self.claim_db_user_email}&course={self.claim_db_user_course}&room={self.form_text}&queue=
      {self.group_size}&wtime={self.wait_time}' frameborder=0 width='100%' height='100%;'  id=ajaxchat >
