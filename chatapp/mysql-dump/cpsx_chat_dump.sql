@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.44, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.9, for osx10.11 (x86_64)
 --
--- Host: localhost    Database: ajax_chat
+-- Host: localhost    Database: cpsx_chat
 -- ------------------------------------------------------
--- Server version	5.5.44-0ubuntu0.12.04.1
+-- Server version	5.7.11
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,8 +30,17 @@ CREATE TABLE `s_ajax_chat_messages` (
   `when` int(11) NOT NULL,
   `room` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=490 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=534 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `s_ajax_chat_messages`
+--
+
+LOCK TABLES `s_ajax_chat_messages` WRITE;
+/*!40000 ALTER TABLE `s_ajax_chat_messages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `s_ajax_chat_messages` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `s_members`
@@ -45,8 +54,17 @@ CREATE TABLE `s_members` (
   `name` varchar(255) NOT NULL,
   `pass` varchar(40) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `s_members`
+--
+
+LOCK TABLES `s_members` WRITE;
+/*!40000 ALTER TABLE `s_members` DISABLE KEYS */;
+/*!40000 ALTER TABLE `s_members` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `teams`
@@ -59,11 +77,21 @@ CREATE TABLE `teams` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `room` text NOT NULL,
   `user` text NOT NULL,
+  `course` varchar(40) DEFAULT NULL,
   `full` int(11) NOT NULL,
   `team_seed` text NOT NULL,
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=250 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `teams`
+--
+
+LOCK TABLES `teams` WRITE;
+/*!40000 ALTER TABLE `teams` DISABLE KEYS */;
+/*!40000 ALTER TABLE `teams` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -74,4 +102,4 @@ CREATE TABLE `teams` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-06 20:19:06
+-- Dump completed on 2016-02-19 17:19:18
