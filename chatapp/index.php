@@ -61,13 +61,23 @@
       $sChatInputForm = $GLOBALS['AjaxChat']->getInputForm();
       $GLOBALS['AjaxChat']->acceptMessages();
   }
-
-  echo $sChatInputForm;
-  print "<div style='font-size:12px;color:#848484;'>Current peers:</span> <span id='cmembers'>John doe</div>";
-  require_once('logoutbutton.php');  // not sure why this was factored out ever
-  echo $sChatMessages;
 ?>
 
+<!-- div to line up logout and chat members -->
+<div>
+  <div style="float:left; font-size:12px; color:#848484;">
+    Current members:</span> <span id='cmembers'>
+  </div>
+  <div>
+    <?php require_once('logoutbutton.php'); ?>
+  </div>
+</div>
+<?php echo $sChatInputForm; ?>
+
+<!--div to allow scroll only for chat history -->
+<div class="chat_history">
+  <?php echo $sChatMessages; ?>
+</div>
 
 <script>
 
