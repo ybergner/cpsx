@@ -19,9 +19,9 @@ after a certain elapsed time provided at least two participants are present.
 
 * Graphic enhancement. 
 Differentiating users by color would be a good enhancement for visibility. 
-Also, the logout button might be relocated to the top. 
-At present, the log out button disappears into the scroll buffer requiring 
-users to scroll back through the chat in order to log out of the chat session.
+
+* Scale-up
+This system has never been tested with thousands of students. Any thoughts would be appreciated. 
 
 * Intelligent support. Hey, while you're at it, it would be great to have a really smart
 AI to adaptively facilitate discussions between students.
