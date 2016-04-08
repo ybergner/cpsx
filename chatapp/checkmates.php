@@ -6,6 +6,8 @@ include "formfunctions.php"; // get form
 
 $debugme =0;
 $form = get_form();
+$form["queue"] = trim($form["queue"]); // maybe necessary
+
 
 // plus signs used in edX course_ids encode spaces for PHP,
 // so we need to do this
@@ -91,13 +93,13 @@ if($rows[0] == $form["queue"]){// the team is the required size
     for ($i = 0; $i < $form["queue"]; $i++){
       $stmt2 = $dbhedxapp->prepare("SELECT user_id FROM auth_userprofile
         WHERE name = ? ");
-      $stmt2->execute(array($teammates[i]["user"]));
+      $stmt2->execute(array($teammates[$i]["user"]));
       $user_id = $stmt2->fetch();
 
       $stmt3 = $dbhedxapp->prepare("UPDATE
           course_groups_courseusergroup_users
           SET courseusergroup_id = ? WHERE user_id = ? ");
-      $stmt3->execute(array($assign_order[i], $user_id["user_id"]));
+      $stmt3->execute(array($assign_order[$i], $user_id["user_id"]));
     }
   }
   else if ($is_cohorted[0]==0) {
