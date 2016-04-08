@@ -12,7 +12,7 @@ $stmt = $dbhchat->prepare("select * from teams where team_seed = ? ");
 $stmt->execute($sdata);
 $rows = $stmt->fetchAll();
 
-
+$mates = "";
 foreach($rows as $peer){
   $mates = $mates." ".$peer["user"].",";
 }
