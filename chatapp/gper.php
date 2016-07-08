@@ -192,5 +192,6 @@ function keepsearch(){
 function launchat(){
   $('#bot3').hide();
   window.location.replace("/index.php?user=<?php echo $_GET["user"];?>&room="+$('#chatkey').val());
+  window.parent.location = document.referrer;
 }
 </script>
